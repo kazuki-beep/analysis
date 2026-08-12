@@ -352,10 +352,17 @@ node collect.mjs --new https://tu-preview.vercel.app</pre>
 
   $('#year').textContent = new Date().getFullYear();
 
-  fetch('evidence/evidence.json', { cache: 'no-store' })
-    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(render)
-    .catch(function () { /* pending banner already reflects this state */ });
+  /* Evidence arrives one of two ways: embedded in the page (single-file
+     builds, file:// viewing) or fetched from evidence/. Embedded wins. */
+  var inline = document.getElementById('evidence-inline');
+  if (inline) {
+    try { render(JSON.parse(inline.textContent)); } catch (e) { /* keep pending state */ }
+  } else {
+    fetch('evidence/evidence.json', { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(render)
+      .catch(function () { /* pending banner already reflects this state */ });
+  }
 
   function render(data) {
     var ok = data.targets.filter(function (t) { return !t.desktop.error; });
@@ -492,13 +499,17 @@ node collect.mjs --new https://tu-preview.vercel.app</pre>
       var avail = data.targets.filter(function (t) { return !t.desktop.error; });
       if (!avail.length) return;
 
+      var src = function (t) {
+        return (t.shots && t.shots[view]) || 'evidence/' + t.id + '-' + view + '.png';
+      };
+
       var group = document.createElement('div');
       group.innerHTML = '<p class="eyebrow">' + esc(title) + '</p>' +
         '<div class="grid cols-2" style="margin-top:1rem">' + avail.map(function (t) {
           return '<figure class="shot" style="margin:0">' +
             '<figcaption>' + esc(t.label) + '</figcaption>' +
             '<div class="frame"><img loading="lazy" alt="Captura de ' + esc(t.label) +
-              ' en ' + esc(view) + '" src="evidence/' + esc(t.id) + '-' + esc(view) + '.png"></div>' +
+              ' en ' + esc(view) + '" src="' + esc(src(t)) + '"></div>' +
           '</figure>';
         }).join('') + '</div>';
       host.appendChild(group);
