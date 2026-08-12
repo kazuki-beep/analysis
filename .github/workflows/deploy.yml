@@ -1,0 +1,61 @@
+name: Deploy to Vercel
+
+# Deploys both projects from GitHub's runners, which can reach Vercel.
+# Requires one repository secret: VERCEL_TOKEN
+#   Settings → Secrets and variables → Actions → New repository secret
+# Create the token at vercel.com/account/tokens
+#
+# Run it from the Actions tab (Run workflow), or let it fire on push.
+# The two URLs are printed to the run summary.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/bono-website-redesign-zcrkar]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Deploy site
+        id: site
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "::error::VERCEL_TOKEN secret is not set. Add it under Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+          url=$(vercel deploy --prod --yes --token="$VERCEL_TOKEN")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "Site: $url"
+
+      - name: Deploy audit
+        id: audit
+        working-directory: bono-audit
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          url=$(vercel deploy --prod --yes --token="$VERCEL_TOKEN")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "Audit: $url"
+
+      - name: Publish the two links
+        run: |
+          {
+            echo "## Los dos links"
+            echo ""
+            echo "| | |"
+            echo "|---|---|"
+            echo "| **Auditoría** | ${{ steps.audit.outputs.url }} |"
+            echo "| **Sitio rediseñado** | ${{ steps.site.outputs.url }} |"
+          } >> "$GITHUB_STEP_SUMMARY"
