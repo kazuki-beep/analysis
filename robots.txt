@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /signin.html
+Disallow: /es/acceso.html
+
+Sitemap: https://www.bono.eco/sitemap.xml

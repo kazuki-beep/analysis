@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+    <loc>https://www.bono.eco/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bono.eco/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.bono.eco/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bono.eco/"/>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://www.bono.eco/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bono.eco/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.bono.eco/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.bono.eco/"/>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://www.bono.eco/demo</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bono.eco/demo"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.bono.eco/es/demo"/>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.bono.eco/es/demo</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bono.eco/demo"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.bono.eco/es/demo"/>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.bono.eco/resources</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bono.eco/resources"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.bono.eco/es/recursos"/>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.bono.eco/es/recursos</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bono.eco/resources"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.bono.eco/es/recursos"/>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.bono.eco/case-studies/grupo-modelo</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bono.eco/case-studies/grupo-modelo"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.bono.eco/es/casos-de-exito/grupo-modelo"/>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.bono.eco/es/casos-de-exito/grupo-modelo</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.bono.eco/case-studies/grupo-modelo"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.bono.eco/es/casos-de-exito/grupo-modelo"/>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>
