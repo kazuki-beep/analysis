@@ -19,6 +19,23 @@ python3 -m http.server 8000
 # http://localhost:8000
 ```
 
+## Deploying
+
+Two Vercel projects, same pattern: the site, and the audit alongside it.
+
+```bash
+# the site — from the repo root
+vercel --prod
+
+# the audit — its own project, noindex by header
+cd bono-audit && vercel --prod
+```
+
+Root `vercel.json` sets clean URLs, immutable caching on `/assets/*` and the
+usual security headers. `bono-audit/vercel.json` adds
+`X-Robots-Tag: noindex, nofollow`, which is why the audit has to be a separate
+project rather than a folder of the site.
+
 ## Structure
 
 ```
@@ -33,7 +50,22 @@ signin.html  es/acceso.html             Sign-in (not wired to auth)
 assets/css/bono.css                     Design system (single file)
 assets/js/bono.js                       All behaviour (single file)
 assets/img/favicon.svg
+vercel.json                             Site deploy config
+bono-audit/                             Separate Vercel project — see its README
 ```
+
+## Audit
+
+`bono-audit/` is an instrumented comparison between bono.eco and this redesign,
+deployed as its own noindex project. `collect.mjs` loads each target in a real
+browser at desktop and mobile, measures vitals, network weight, mobile overflow,
+contrast, and SEO tags, and writes `evidence/evidence.json`; the page renders
+only what was measured and stays empty otherwise.
+
+It found three defects in this redesign, all now fixed: 48 text elements below
+WCAG AA contrast, a heading-level skip into the footer, and — the serious one —
+`.metric` painting a carbon background without setting a foreground, so the case
+study's stat band rendered ink-on-ink and was invisible.
 
 ## Homepage flow
 

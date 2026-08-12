@@ -1,0 +1,15 @@
+{
+  "name": "bono-audit",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Instrumented comparison between bono.eco and the redesign.",
+  "scripts": {
+    "setup": "npm install playwright && npx playwright install chromium",
+    "collect": "node collect.mjs",
+    "serve": "python3 -m http.server 4000"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.0"
+  }
+}
