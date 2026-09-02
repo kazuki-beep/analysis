@@ -1,0 +1,1241 @@
+<title>Vida Bebida 2.0</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --jamaica:#C3175B; --jamaica-deep:#8E0F41;
+  --limon:#A8C62B; --mango:#F2891C; --moras:#6B3FA0;
+  --jengibre:#E0A72E; --mate:#3E7A4C; --coco:#E8DCC6; --vinagre:#B5762F;
+  --ink:#1F1720; --ink-2:#5A4C57; --ink-3:#8B7C86;
+  --ground:#FBF6F7; --surface:#FFFFFF; --surface-2:#F4ECEE;
+  --line:#E4D8DC; --line-strong:#CDBAC1;
+  --ok:#2E7D5B; --warn:#B4600C;
+  --focus:#C3175B;
+  --r:14px; --r-s:8px;
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --body:"Karla",-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --shadow:0 1px 2px rgba(31,23,32,.06),0 8px 24px -12px rgba(31,23,32,.18);
+  --bar-h:44px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ink:#F6EEF1; --ink-2:#C4B2BA; --ink-3:#8E7B85;
+  --ground:#171016; --surface:#211820; --surface-2:#2C2028;
+  --line:#392B34; --line-strong:#503D48;
+  --jamaica:#F0417F; --jamaica-deep:#C3175B; --focus:#F0417F;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 10px 30px -14px rgba(0,0,0,.8);
+}}
+:root[data-theme="dark"]{
+  --ink:#F6EEF1; --ink-2:#C4B2BA; --ink-3:#8E7B85;
+  --ground:#171016; --surface:#211820; --surface-2:#2C2028;
+  --line:#392B34; --line-strong:#503D48;
+  --jamaica:#F0417F; --jamaica-deep:#C3175B; --focus:#F0417F;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 10px 30px -14px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--display);margin:0;text-wrap:balance;font-variation-settings:"wdth" 95;letter-spacing:-.02em;line-height:1.02}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+@media(max-width:640px){.wrap{width:min(1180px,100% - 28px)}}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:8px;top:-60px;z-index:200;background:var(--ink);color:var(--ground);padding:10px 16px;border-radius:8px;text-decoration:none}
+.skip:focus{top:8px}
+
+/* ---------- DEMO NOTICE ---------- */
+#demoNote{background:#1F1720;color:#EFE3E8;font-size:12px;line-height:1.4;padding:7px 0}
+#demoNote .wrap{display:flex;gap:9px;align-items:center}
+#demoNote .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;background:var(--jengibre);color:#1F1720;padding:2px 7px;border-radius:4px;flex:none}
+#demoNote .one{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#demoNote .more{flex:none;background:none;border:0;color:#EFE3E8;text-decoration:underline;font-size:11.5px;padding:0}
+#demoNote .full{display:none;padding:4px 0 8px;font-size:12px;line-height:1.5;color:#C9B9C0;max-width:78ch}
+#demoNote .full.on{display:block}
+#demoNote .full p+p{margin-top:7px}
+@media(max-width:640px){#demoNote .one{white-space:normal;font-size:11.5px;line-height:1.3}}
+
+/* ---------- ANNOUNCEMENT STRIP (§01/§02/§31) ---------- */
+.ann{position:sticky;top:0;z-index:90;background:linear-gradient(96deg,var(--jamaica-deep),var(--jamaica) 55%,#E23C77);color:#fff;box-shadow:0 1px 0 rgba(0,0,0,.12)}
+.ann__row{min-height:var(--bar-h);display:flex;align-items:center;gap:14px;padding:6px 0}
+.ann__tag{font-family:var(--display);font-variation-settings:"wdth" 112;font-weight:800;font-size:19px;letter-spacing:-.01em;flex:none;line-height:1}
+.ann__txt{font-size:13.5px;flex:1;min-width:0}
+.ann__txt s{display:none}
+.ann__cta{flex:none;background:#fff;color:var(--jamaica-deep);border:0;border-radius:999px;padding:7px 15px;font-weight:700;font-size:13px;display:inline-flex;align-items:center;gap:6px;transition:transform .15s,box-shadow .15s}
+.ann__cta:hover{transform:translateY(-1px);box-shadow:0 6px 16px -6px rgba(0,0,0,.45)}
+.ann__cta[aria-expanded="true"]{background:rgba(255,255,255,.16);color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.7)}
+.ann__panel{display:none;border-top:1px solid rgba(255,255,255,.28);background:rgba(0,0,0,.16)}
+.ann__panel.open{display:block;animation:drop .22s ease}
+@keyframes drop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.ann__form{padding:16px 0 20px;display:grid;gap:12px;grid-template-columns:1fr auto;align-items:end;max-width:760px}
+.ann__form label{font-size:12px;opacity:.9;display:block;margin-bottom:5px}
+.ann__form input{width:100%;border:0;border-radius:10px;padding:11px 13px;font:inherit;font-size:15px;background:#fff;color:#1F1720}
+.ann__form button{border:0;border-radius:10px;padding:12px 20px;font-weight:700;background:#1F1720;color:#fff}
+.ann__fine{grid-column:1/-1;font-size:11.5px;opacity:.82;margin:0}
+.ann__ok{padding:16px 0 20px;font-size:14px;display:none}
+.ann__ok.on{display:block}
+@media(max-width:720px){
+  .ann__row{gap:9px}
+  .ann__tag{font-size:16px}
+  .ann__txt{font-size:11.5px;line-height:1.25}
+  .ann__txt b{display:block}
+  .ann__cta{padding:6px 11px;font-size:11.5px}
+  .ann__form{grid-template-columns:1fr}
+}
+
+/* ---------- HEADER ---------- */
+header.site{position:sticky;top:var(--bar-h);z-index:80;background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;gap:22px;height:60px}
+.logo{font-family:var(--display);font-variation-settings:"wdth" 118;font-weight:900;font-size:17px;letter-spacing:-.03em;text-decoration:none;line-height:1;display:flex;flex-direction:column}
+.logo span{font-family:var(--mono);font-size:8px;letter-spacing:.22em;font-weight:400;color:var(--ink-3);margin-top:2px}
+nav.main{display:flex;gap:20px;font-size:14px;margin-left:auto}
+.hd .cartbtn{margin-left:0}
+@media(max-width:880px){.hd .cartbtn{margin-left:auto}}
+nav.main a{text-decoration:none;color:var(--ink-2);padding:4px 0;border-bottom:2px solid transparent}
+nav.main a:hover{color:var(--ink);border-color:var(--jamaica)}
+.cartbtn{border:1px solid var(--line-strong);background:var(--surface);border-radius:999px;padding:8px 14px;font-size:13.5px;font-weight:700;display:inline-flex;gap:8px;align-items:center}
+.cartbtn .n{background:var(--jamaica);color:#fff;border-radius:999px;min-width:19px;height:19px;font-size:11px;display:grid;place-items:center;font-family:var(--mono)}
+@media(max-width:880px){nav.main{display:none}}
+
+/* ---------- HERO ---------- */
+.hero{padding:44px 0 8px;position:relative;overflow:hidden}
+.hero__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--jamaica);margin-bottom:14px}
+.hero h1{font-size:clamp(38px,6.4vw,74px);font-weight:900;font-variation-settings:"wdth" 108;line-height:.94}
+.hero h1 em{font-style:normal;color:var(--jamaica)}
+.hero__sub{margin-top:16px;font-size:17px;color:var(--ink-2);max-width:44ch}
+.hero__cta{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+.btn{border:0;border-radius:999px;padding:13px 24px;font-weight:700;font-size:15px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:transform .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn--p{background:var(--jamaica);color:#fff}
+.btn--s{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.6px var(--line-strong)}
+.hero__meta{margin-top:26px;display:flex;gap:22px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-2)}
+.hero__meta div{display:flex;gap:7px;align-items:center}
+.hero__meta i{width:6px;height:6px;border-radius:50%;background:var(--mate);flex:none}
+.hero__stage{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:end}
+@media(max-width:860px){.hero__grid{grid-template-columns:1fr;gap:30px}.hero{padding-top:30px}}
+
+/* ---------- PACK (asset slot — NOT a drawn product) ---------- */
+.pack{position:relative;border-radius:12px 12px 10px 10px;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 30%,var(--surface)),color-mix(in srgb,var(--c) 88%,#000 4%));display:flex;flex-direction:column;justify-content:flex-end;padding:10px;overflow:hidden;isolation:isolate}
+.pack::before{content:"";position:absolute;left:-10%;right:-10%;top:12%;height:26px;border-radius:50%;background:color-mix(in srgb,var(--c) 55%,#fff);opacity:.5;filter:blur(6px)}
+.pack::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(255,255,255,.34),transparent 42%);pointer-events:none}
+.pack__fmt{position:relative;z-index:2;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.pack__slot{position:absolute;top:8px;left:8px;z-index:2;font-family:var(--mono);font-size:8px;letter-spacing:.08em;color:rgba(255,255,255,.92);background:rgba(0,0,0,.28);border:1px dashed rgba(255,255,255,.55);border-radius:4px;padding:2px 5px}
+.hero__stage .pack{aspect-ratio:.44}
+.hero__stage .pack:nth-child(1){aspect-ratio:.4;margin-bottom:22px}
+.hero__stage .pack:nth-child(3){aspect-ratio:.4;margin-bottom:38px}
+@media(prefers-reduced-motion:no-preference){
+  .hero__stage .pack{animation:float 7s ease-in-out infinite}
+  .hero__stage .pack:nth-child(2){animation-delay:-2.3s}
+  .hero__stage .pack:nth-child(3){animation-delay:-4.6s}
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+/* ---------- SECTIONS ---------- */
+section{padding:64px 0}
+.sec__head{margin-bottom:26px}
+.sec__head h2{font-size:clamp(27px,3.6vw,42px);font-weight:800;font-variation-settings:"wdth" 104}
+.sec__head p{color:var(--ink-2);margin-top:9px;max-width:58ch}
+
+/* ---------- ¿QUÉ SE TE ANTOJA? (§10) ---------- */
+#antojo{background:var(--surface);border-block:1px solid var(--line)}
+.moods{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+@media(max-width:900px){.moods{grid-template-columns:repeat(2,1fr)}}
+.mood{position:relative;border:1.5px solid var(--line);background:var(--ground);border-radius:var(--r);padding:16px 14px 15px;text-align:left;overflow:hidden;transition:border-color .18s,transform .18s}
+.mood i{position:absolute;inset:auto 0 0 0;height:5px;background:var(--c)}
+.mood b{display:block;font-family:var(--display);font-weight:800;font-size:17px;font-variation-settings:"wdth" 100;margin-bottom:5px}
+.mood small{color:var(--ink-2);font-size:12.5px;line-height:1.4;display:block}
+.mood:hover{transform:translateY(-2px);border-color:var(--c)}
+.mood[aria-pressed="true"]{border-color:var(--c);box-shadow:inset 0 0 0 1.5px var(--c);background:color-mix(in srgb,var(--c) 8%,var(--ground))}
+#antojoOut{margin-top:26px}
+#antojoOut[hidden]{display:none}
+.antojo__lead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.antojo__lead h3{font-size:24px;font-weight:800}
+.antojo__lead button{background:none;border:0;color:var(--ink-2);font-size:13px;text-decoration:underline;padding:0}
+
+/* ---------- PRODUCT CARDS (§17) ---------- */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+.card{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.card__media{aspect-ratio:1.12;padding:14px;background:color-mix(in srgb,var(--c) 12%,var(--surface));display:grid;place-items:center;position:relative}
+.card__media .pack{height:78%;aspect-ratio:.46}
+.card__fam{position:absolute;top:10px;left:10px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 8px;color:var(--ink-2)}
+.card__b{padding:13px 14px 14px;display:flex;flex-direction:column;gap:4px;flex:1}
+.card__b h4{font-size:15.5px;font-weight:700;font-variation-settings:"wdth" 98;line-height:1.15}
+.card__flav{font-size:12.5px;color:var(--ink-2)}
+.card__row{margin-top:auto;padding-top:11px;display:flex;align-items:center;gap:8px}
+.price{font-family:var(--mono);font-size:14px;font-weight:600;font-variant-numeric:tabular-nums}
+.price[data-demo]{border-bottom:1.5px dotted var(--warn);cursor:help}
+.card__row .add{margin-left:auto;border:0;background:var(--ink);color:var(--ground);border-radius:999px;padding:8px 14px;font-size:12.5px;font-weight:700}
+.card__row .add:hover{background:var(--jamaica);color:#fff}
+.card__qv{border:0;background:none;padding:0;font-size:12px;color:var(--ink-2);text-decoration:underline;text-align:left}
+
+/* ---------- WORLDS (§14) ---------- */
+.worlds{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:900px){.worlds{grid-template-columns:1fr}}
+.world{border-radius:var(--r);padding:22px;color:#fff;background:linear-gradient(150deg,color-mix(in srgb,var(--c) 92%,#000 12%),var(--c));position:relative;overflow:hidden;min-height:178px;display:flex;flex-direction:column;text-decoration:none}
+.world h3{font-size:26px;font-weight:900;font-variation-settings:"wdth" 114;text-transform:uppercase}
+.world p{font-size:13.5px;opacity:.93;margin-top:8px;max-width:34ch}
+.world .mono{margin-top:auto;padding-top:16px;opacity:.85}
+.world::after{content:"";position:absolute;right:-40px;bottom:-60px;width:170px;height:170px;border-radius:50%;border:1.5px solid rgba(255,255,255,.28)}
+
+/* ---------- CHESCA (§15/§16) ---------- */
+#chesca{background:var(--ch,var(--jamaica));color:#fff;transition:background .5s ease;position:relative;overflow:hidden}
+#chesca .sec__head p{color:rgba(255,255,255,.9)}
+.ch__grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+@media(max-width:860px){.ch__grid{grid-template-columns:1fr;gap:26px}}
+.ch__flav{display:flex;gap:10px;margin:22px 0}
+.ch__flav button{border:1.6px solid rgba(255,255,255,.5);background:transparent;color:#fff;border-radius:999px;padding:9px 18px;font-weight:700;font-size:14px;transition:background .2s}
+.ch__flav button[aria-pressed="true"]{background:#fff;color:var(--ch,var(--jamaica))}
+.ch__note{display:inline-flex;gap:9px;align-items:center;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.32);border-radius:10px;padding:10px 14px;font-size:13.5px;margin-top:6px}
+.ch__stage{display:grid;place-items:center;min-height:270px;position:relative}
+.ch__can{width:min(190px,52vw);aspect-ratio:.52;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,.1));border:1px solid rgba(255,255,255,.45);display:flex;align-items:flex-end;justify-content:center;padding:14px;position:relative;transition:transform .45s cubic-bezier(.2,.8,.3,1)}
+.ch__can span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.bub{position:absolute;border-radius:50%;background:rgba(255,255,255,.5);pointer-events:none}
+@media(prefers-reduced-motion:no-preference){.bub{animation:rise linear infinite}}
+@keyframes rise{from{transform:translateY(0);opacity:0}10%{opacity:.75}to{transform:translateY(-260px);opacity:0}}
+
+/* ---------- ARMA TU CAJA (§22) ---------- */
+.box__wrap{display:grid;grid-template-columns:1fr 320px;gap:26px;align-items:start}
+@media(max-width:940px){.box__wrap{grid-template-columns:1fr}}
+.box__sizes{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.box__sizes button{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 18px;font-weight:700;font-size:14px}
+.box__sizes button[aria-pressed="true"]{border-color:var(--jamaica);box-shadow:inset 0 0 0 1.5px var(--jamaica);color:var(--jamaica)}
+.picker{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:700px){.picker{grid-template-columns:repeat(2,1fr)}}
+.pick{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:10px;display:flex;gap:10px;align-items:center;text-align:left}
+.pick .sw{width:26px;height:38px;border-radius:5px;background:var(--c);flex:none}
+.pick b{font-size:13px;font-weight:700;display:block;line-height:1.2}
+.pick small{font-size:11px;color:var(--ink-2)}
+.pick .qty{margin-left:auto;display:flex;align-items:center;gap:6px}
+.pick .qty button{width:24px;height:24px;border-radius:6px;border:1px solid var(--line-strong);background:var(--ground);display:grid;place-items:center;font-size:14px;line-height:1}
+.pick .qty span{font-family:var(--mono);font-size:13px;min-width:14px;text-align:center}
+.box__side{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:18px;position:sticky;top:120px}
+.meter{height:9px;border-radius:999px;background:var(--surface-2);overflow:hidden;margin:12px 0 8px}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--jamaica),var(--mango));width:0;transition:width .35s ease}
+.box__side ul{list-style:none;padding:0;margin:14px 0;font-size:13px;display:grid;gap:6px;max-height:170px;overflow:auto}
+.box__side li{display:flex;gap:8px;justify-content:space-between;color:var(--ink-2)}
+.box__side .btn{width:100%;justify-content:center;margin-top:6px}
+.box__side .btn[disabled]{opacity:.45;pointer-events:none}
+
+/* ---------- SEGUNDA VIDA (§24/§25) ---------- */
+#segunda{background:var(--surface);border-block:1px solid var(--line)}
+.sv{display:grid;grid-template-columns:340px 1fr;gap:40px;align-items:center}
+@media(max-width:860px){.sv{grid-template-columns:1fr;gap:24px}}
+.sv__steps{display:grid;gap:10px}
+.sv__step{display:flex;gap:14px;align-items:flex-start;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--ground);transition:border-color .3s,background .3s}
+.sv__step.on{border-color:var(--mate);background:color-mix(in srgb,var(--mate) 9%,var(--ground))}
+.sv__step b{font-family:var(--display);font-weight:800;font-size:16px;display:block}
+.sv__step small{color:var(--ink-2);font-size:12.5px}
+.sv__step .n{font-family:var(--mono);font-size:11px;color:var(--mate);flex:none;padding-top:3px}
+
+/* ---------- TIENDAS (§26) ---------- */
+.stores{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:900px){.stores{grid-template-columns:1fr}}
+.store{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:15px}
+.store b{display:block;font-size:15px;font-weight:700}
+.store address{font-style:normal;font-size:13px;color:var(--ink-2);margin:6px 0 12px;line-height:1.5}
+.store a{font-size:13px;font-weight:700;color:var(--jamaica);text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.storefilter{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.storefilter button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:13px}
+.storefilter button[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+
+/* ---------- FAQ (§35 AEO) ---------- */
+.faq{display:grid;gap:0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{padding:17px 0;font-family:var(--display);font-weight:700;font-size:17px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--jamaica);font-size:22px;line-height:1}
+.faq details[open] summary::after{content:"−"}
+.faq p{padding:0 0 18px;color:var(--ink-2);max-width:70ch;font-size:14.5px}
+
+/* ---------- CART DRAWER (§28) ---------- */
+.scrim{position:fixed;inset:0;background:rgba(31,23,32,.5);z-index:150;opacity:0;pointer-events:none;transition:opacity .25s}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--ground);z-index:160;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s cubic-bezier(.2,.8,.3,1)}
+.drawer.on{transform:none}
+.drawer__hd{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
+.drawer__hd h3{font-size:19px;font-weight:800;flex:1}
+.x{border:0;background:var(--surface-2);width:32px;height:32px;border-radius:50%;font-size:17px;line-height:1}
+.ship{padding:14px 20px;border-bottom:1px solid var(--line);background:var(--surface);font-size:13px}
+.ship .meter{margin:9px 0 0}
+.ship b{color:var(--ok)}
+.drawer__body{flex:1;overflow:auto;padding:6px 20px}
+.li{display:grid;grid-template-columns:46px 1fr auto;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);align-items:center}
+.li .sw{width:46px;height:60px;border-radius:6px;background:var(--c)}
+.li b{font-size:14px;font-weight:700;display:block;line-height:1.2}
+.li small{font-size:12px;color:var(--ink-2)}
+.li .qty{display:flex;gap:6px;align-items:center;margin-top:6px}
+.li .qty button{width:22px;height:22px;border-radius:5px;border:1px solid var(--line-strong);background:var(--surface);line-height:1}
+.drawer__ft{padding:16px 20px;border-top:1px solid var(--line);background:var(--surface)}
+.drawer__ft .tot{display:flex;justify-content:space-between;font-weight:700;margin-bottom:6px}
+.drawer__ft .btn{width:100%;justify-content:center}
+.empty{padding:50px 0;text-align:center;color:var(--ink-2);font-size:14px}
+.xsell{padding:14px 20px;border-top:1px solid var(--line);font-size:13px}
+.xsell .mono{color:var(--ink-3);margin-bottom:8px}
+.xsell button{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 11px;font-size:12.5px;margin:0 6px 6px 0}
+
+/* ---------- QUICK VIEW (§18) ---------- */
+.qv{position:fixed;z-index:170;background:var(--ground);display:flex;flex-direction:column;transition:transform .3s cubic-bezier(.2,.8,.3,1)}
+@media(min-width:761px){.qv{top:0;right:0;bottom:0;width:min(520px,100%);transform:translateX(100%)}.qv.on{transform:none}}
+@media(max-width:760px){.qv{left:0;right:0;bottom:0;top:34px;border-radius:18px 18px 0 0;transform:translateY(100%)}.qv.on{transform:none}}
+.qv__body{overflow:auto;padding:0 20px 20px}
+.qv__hero{height:210px;margin:0 -20px 18px;background:color-mix(in srgb,var(--c) 20%,var(--surface));display:grid;place-items:center}
+.qv__hero .pack{height:82%;aspect-ratio:.46}
+.qv h3{font-size:25px;font-weight:800;margin-bottom:6px}
+.qv dl{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;margin:18px 0 0;font-size:13.5px}
+.qv dt{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);padding-top:3px}
+.qv dd{margin:0;color:var(--ink-2)}
+.qv__ft{margin-top:auto;padding:16px 20px;border-top:1px solid var(--line);background:var(--surface);display:flex;gap:10px}
+.qv__ft .btn{flex:1;justify-content:center}
+
+/* ---------- FOOTER ---------- */
+footer.site{background:var(--ink);color:var(--ground);padding:52px 0 30px;margin-top:10px}
+:root[data-theme="dark"] footer.site,:root:not([data-theme="light"]) footer.site{background:#120C11}
+.ft{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px}
+@media(max-width:860px){.ft{grid-template-columns:1fr 1fr}}
+.ft h5{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#9C8B94;margin:0 0 12px;font-weight:500}
+.ft ul{list-style:none;padding:0;margin:0;display:grid;gap:8px;font-size:13.5px}
+.ft a{color:#E6DBE0;text-decoration:none}
+.ft a:hover{color:#fff;text-decoration:underline}
+.ft__legal{margin-top:36px;padding-top:18px;border-top:1px solid #362A33;font-size:11.5px;color:#9C8B94;display:flex;gap:18px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,80px);background:var(--ink);color:var(--ground);padding:12px 20px;border-radius:999px;font-size:13.5px;font-weight:600;z-index:200;opacity:0;transition:all .3s;pointer-events:none}
+:root[data-theme="dark"] .toast,:root:not([data-theme="light"]) .toast{background:var(--surface-2);color:var(--ink);box-shadow:0 0 0 1px var(--line)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- MOBILE NAV + SEARCH ---------- */
+.iconbtn{border:1px solid var(--line-strong);background:var(--surface);border-radius:999px;width:38px;height:38px;display:grid;place-items:center;flex:none}
+.iconbtn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+#menuBtn{display:none}
+@media(max-width:880px){#menuBtn{display:grid}}
+.sheet{position:fixed;inset:0;z-index:165;background:var(--ground);display:flex;flex-direction:column;transform:translateY(-100%);transition:transform .28s cubic-bezier(.2,.8,.3,1)}
+.sheet.on{transform:none}
+.sheet__hd{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line)}
+.sheet nav{padding:8px 20px;display:grid}
+.sheet nav a{padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none;font-family:var(--display);font-weight:700;font-size:20px}
+.sheet .fams{padding:18px 20px;display:flex;gap:8px;flex-wrap:wrap}
+.sheet .fams a{border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13px;text-decoration:none;color:var(--ink-2)}
+#searchWrap{padding:16px 20px;border-bottom:1px solid var(--line)}
+#searchInput{width:100%;border:1.5px solid var(--line-strong);background:var(--surface);border-radius:12px;padding:13px 15px;font:inherit;font-size:16px;color:var(--ink)}
+#searchOut{flex:1;overflow:auto;padding:6px 20px 20px}
+.sres{display:grid;grid-template-columns:38px 1fr auto;gap:13px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);width:100%;background:none;border-left:0;border-right:0;border-top:0;text-align:left}
+.sres .sw{width:38px;height:50px;border-radius:5px;background:var(--c)}
+.sres b{display:block;font-size:14.5px;font-weight:700;line-height:1.2}
+.sres small{font-size:12px;color:var(--ink-2)}
+.shint{color:var(--ink-3);font-size:14px;padding:26px 0}
+
+/* ---------- VIEWS / PDP (§19) ---------- */
+.crumb{font-size:12.5px;color:var(--ink-3);padding:20px 0 0;display:flex;gap:8px;flex-wrap:wrap}
+.crumb a{color:var(--ink-2);text-decoration:none}
+.crumb a:hover{color:var(--jamaica)}
+.pdp{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;padding:22px 0 10px;align-items:start}
+@media(max-width:880px){.pdp{grid-template-columns:1fr;gap:26px}}
+.pdp__gal{display:grid;grid-template-columns:1fr;gap:10px;position:sticky;top:128px}
+@media(max-width:880px){.pdp__gal{position:static}}
+.pdp__main{aspect-ratio:1.1;border-radius:var(--r);background:color-mix(in srgb,var(--c) 16%,var(--surface));display:grid;place-items:center;border:1px solid var(--line)}
+.pdp__main .pack{height:76%;aspect-ratio:.46}
+.pdp__thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pdp__thumbs div{aspect-ratio:1;border-radius:10px;border:1px solid var(--line);background:color-mix(in srgb,var(--c) 10%,var(--surface));display:grid;place-items:center;font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);text-align:center;padding:6px}
+.pdp h1{font-size:clamp(30px,4.4vw,46px);font-weight:900;font-variation-settings:"wdth" 104;margin-top:6px}
+.pdp .fam{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--jamaica)}
+.pdp .pr{font-family:var(--mono);font-size:24px;font-weight:600;margin-top:14px;display:inline-block}
+.pdp .lead{color:var(--ink-2);margin-top:12px;max-width:52ch}
+.optlab{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin:24px 0 9px}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opts button{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 15px;font-size:14px;font-weight:500}
+.opts button[aria-pressed="true"]{border-color:var(--jamaica);box-shadow:inset 0 0 0 1.5px var(--jamaica);color:var(--jamaica);font-weight:700}
+.buyrow{display:flex;gap:12px;margin-top:24px;align-items:stretch;flex-wrap:wrap}
+.stepper{display:flex;align-items:center;border:1.5px solid var(--line-strong);border-radius:999px;overflow:hidden;background:var(--surface)}
+.stepper button{width:42px;height:48px;border:0;background:none;font-size:19px;line-height:1}
+.stepper span{min-width:30px;text-align:center;font-family:var(--mono);font-size:15px}
+.buyrow .btn{flex:1;min-width:190px;justify-content:center;padding:15px 24px;font-size:16px}
+.deliv{margin-top:18px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px 16px;font-size:13.5px;color:var(--ink-2);display:grid;gap:8px}
+.deliv div{display:grid;grid-template-columns:16px 1fr;gap:10px;align-items:start}
+.deliv i{width:7px;height:7px;border-radius:50%;background:var(--mate);margin-top:7px}
+
+/* ---------- LO QUE HAY ADENTRO (§20 §21) ---------- */
+.inside{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);overflow:hidden;margin-top:14px}
+.inside__hd{padding:18px 20px 4px}
+.inside__hd h3{font-size:22px;font-weight:800}
+.inside__hd p{color:var(--ink-2);font-size:13.5px;margin-top:5px}
+.inside__list{display:grid}
+.ingr{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:15px 20px;border-top:1px solid var(--line);align-items:start}
+.ingr .dot{width:44px;height:44px;border-radius:50%;background:var(--c);display:grid;place-items:center;font-family:var(--mono);font-size:11px;color:#fff;font-weight:600}
+.ingr b{display:block;font-family:var(--display);font-weight:700;font-size:16px}
+.ingr small{color:var(--ink-2);font-size:13px;display:block;margin-top:2px}
+.inside__pend{padding:18px 20px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-3);background:var(--surface-2)}
+.blocks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media(max-width:760px){.blocks{grid-template-columns:1fr}}
+.blk{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:18px 20px}
+.blk h3{font-size:17px;font-weight:800;margin-bottom:7px}
+.blk p{color:var(--ink-2);font-size:14px}
+.blk ul{margin:8px 0 0;padding-left:18px;color:var(--ink-2);font-size:14px;display:grid;gap:5px}
+.fmtrow{display:grid;gap:8px;margin-top:10px}
+.fmtrow button{border:1px solid var(--line);background:var(--ground);border-radius:10px;padding:11px 14px;display:flex;gap:12px;align-items:center;text-align:left;font-size:14px}
+.fmtrow button:hover{border-color:var(--jamaica)}
+.fmtrow .sw{width:16px;height:24px;border-radius:4px;background:var(--c);flex:none}
+.fmtrow .price{margin-left:auto}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+
+<a class="skip" href="#main">Saltar al contenido</a>
+
+<div id="demoNote">
+  <div class="wrap">
+    <span class="tag">Prototipo</span>
+    <p class="one">Precios de maqueta, fotografía pendiente. Ningún dato es del catálogo en vivo.</p>
+    <button class="more" id="demoMore" aria-expanded="false" aria-controls="demoFull">Detalles</button>
+  </div>
+  <div class="wrap"><div class="full" id="demoFull">
+    <p>Los <strong>precios llevan subrayado punteado</strong>: son valores de maqueta, no del catálogo real. Las áreas de producto marcadas <span class="mono" style="border:1px dashed currentColor;padding:1px 4px;border-radius:3px">asset</span> esperan la fotografía original de Vida&nbsp;Bebida — no se dibujaron envases falsos.</p>
+    <p>La paleta se deriva de ingredientes reales (jamaica, limón, mango, moras, jengibre, mate), no de la identidad de la marca. Nombres, sabores, formatos, umbral de envío, términos de suscripción y puntos de venta provienen de fuentes públicas y deben verificarse contra la tienda en vivo antes de publicar.</p>
+  </div></div>
+</div>
+
+<!-- ===== ANNOUNCEMENT (§01 §02 §31) ===== -->
+<div class="ann" id="ann">
+  <div class="wrap ann__row">
+    <div class="ann__tag">10%</div>
+    <p class="ann__txt"><b>en tu primer pedido de CHESCA</b> Suscríbete y recíbelo al instante.</p>
+    <button class="ann__cta" id="annCta" aria-expanded="false" aria-controls="annPanel">Obtener descuento</button>
+  </div>
+  <div class="ann__panel" id="annPanel">
+    <div class="wrap">
+      <form class="ann__form" id="annForm">
+        <div>
+          <label for="annEmail">Tu correo</label>
+          <input id="annEmail" type="email" required autocomplete="email" placeholder="hola@correo.com">
+        </div>
+        <button type="submit">Enviar mi código</button>
+        <p class="ann__fine">Aplica en el primer pedido de CHESCA. Condiciones vigentes según la tienda en vivo.</p>
+      </form>
+      <div class="ann__ok" id="annOk">Listo. Revisa tu correo — ahí va tu código de 10% para tu primer pedido de CHESCA.</div>
+    </div>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap hd">
+    <a class="logo" href="#main">VIDA BEBIDA<span>CIUDAD DE MÉXICO</span></a>
+    <nav class="main">
+      <a href="#antojo">¿Qué se te antoja?</a>
+      <a href="#mundos">Bebidas</a>
+      <a href="#chesca">CHESCA</a>
+      <a href="#caja">Arma tu caja</a>
+      <a href="#segunda">Segunda Vida</a>
+      <a href="#tiendas">Dónde comprar</a>
+    </nav>
+    <button class="iconbtn" id="searchBtn" aria-label="Buscar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+    <button class="cartbtn" id="cartBtn">Carrito <span class="n" id="cartN">0</span></button>
+    <button class="iconbtn" id="menuBtn" aria-label="Menú" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+
+<div class="sheet" id="menuSheet" role="dialog" aria-modal="true" aria-label="Menú" aria-hidden="true">
+  <div class="sheet__hd"><strong style="flex:1;font-family:var(--display);font-weight:800">Menú</strong><button class="x" id="menuX" aria-label="Cerrar menú">×</button></div>
+  <nav>
+    <a href="#antojo" data-close>¿Qué se te antoja?</a>
+    <a href="#mundos" data-close>Bebidas</a>
+    <a href="#chesca" data-close>CHESCA</a>
+    <a href="#caja" data-close>Arma tu caja</a>
+    <a href="#segunda" data-close>Segunda Vida</a>
+    <a href="#tiendas" data-close>Dónde comprar</a>
+  </nav>
+  <div class="fams" id="menuFams"></div>
+</div>
+
+<div class="sheet" id="searchSheet" role="dialog" aria-modal="true" aria-label="Buscar" aria-hidden="true">
+  <div class="sheet__hd"><strong style="flex:1;font-family:var(--display);font-weight:800">Buscar</strong><button class="x" id="searchX" aria-label="Cerrar búsqueda">×</button></div>
+  <div id="searchWrap"><input id="searchInput" type="search" placeholder="Kombucha, jamaica, bidón, shot…" autocomplete="off" aria-label="Buscar bebidas"></div>
+  <div id="searchOut" aria-live="polite"></div>
+</div>
+
+<main id="main">
+<div id="view" hidden></div>
+<div id="home">
+
+<!-- ===== HERO (§12) ===== -->
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div>
+      <p class="eyebrow">Fermentado en la Ciudad de México</p>
+      <h1>Lo que hay adentro,<br><em>y ya.</em></h1>
+      <p class="hero__sub">Kombucha, yerba mate, kéfir, vinagre y shots. Té verde y negro, fruta, raíces y SCOBY — nada que no puedas leer en la etiqueta.</p>
+      <div class="hero__cta">
+        <a class="btn btn--p" href="#mundos">Pide bebidas</a>
+        <a class="btn btn--s" href="#antojo">Encuentra tu bebida</a>
+      </div>
+      <div class="hero__meta">
+        <div><i></i> Envío gratis en CDMX y área metropolitana desde $300</div>
+        <div><i></i> Suscripción con hasta 15% de ahorro</div>
+        <div><i></i> Botella retornable — Segunda Vida</div>
+      </div>
+    </div>
+    <div class="hero__stage" aria-hidden="true">
+      <div class="pack" style="--c:var(--jamaica)"><span class="pack__slot">asset</span><span class="pack__fmt">Chesca · lata 355 ml</span></div>
+      <div class="pack" style="--c:var(--mate)"><span class="pack__slot">asset</span><span class="pack__fmt">Kombucha · 500 ml</span></div>
+      <div class="pack" style="--c:var(--mango)"><span class="pack__slot">asset</span><span class="pack__fmt">Capibara · mate</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ¿QUÉ SE TE ANTOJA? (§09 §10 §11) ===== -->
+<section id="antojo">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2>¿Qué se te antoja hoy?</h2>
+      <p>Cinco caminos, todos hacia bebidas que ya existen. Elige uno y te llevamos directo — sin cuestionario, sin registro.</p>
+    </div>
+    <div class="moods" id="moods" role="group" aria-label="Elige lo que se te antoja"></div>
+    <div id="antojoOut" hidden aria-live="polite">
+      <div class="antojo__lead">
+        <h3 id="antojoTitle">Esto te puede gustar</h3>
+        <button id="antojoReset">Empezar de nuevo</button>
+      </div>
+      <div class="grid" id="antojoGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WORLDS (§14) ===== -->
+<section id="mundos">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2>Cinco mundos, una casa</h2>
+      <p>Cada familia tiene su carácter. Todas salen de la misma fermentación.</p>
+    </div>
+    <div class="worlds" id="worlds"></div>
+    <div class="sec__head" style="margin-top:44px"><h2 style="font-size:26px">Todo el catálogo</h2></div>
+    <div class="grid" id="allGrid"></div>
+  </div>
+</section>
+
+<!-- ===== CHESCA (§15 §16) ===== -->
+<section id="chesca">
+  <div class="wrap ch__grid">
+    <div>
+      <p class="eyebrow" style="color:rgba(255,255,255,.8)">Agua fresca, con gas</p>
+      <h2 style="font-size:clamp(34px,5vw,58px);font-weight:900;font-variation-settings:'wdth' 112">CHESCA</h2>
+      <p style="margin-top:12px;font-size:16.5px;opacity:.92;max-width:40ch">La de siempre, en lata de 355 ml. Jamaica, limón y mango — los sabores que ya conoces de la jarra de tu casa.</p>
+      <div class="ch__flav" id="chFlav" role="group" aria-label="Sabor de CHESCA"></div>
+      <div class="ch__note">
+        <strong>10%</strong>
+        <span>en tu primer pedido de CHESCA — <button style="background:none;border:0;color:#fff;text-decoration:underline;padding:0;font-weight:700" id="chescaToOffer">tómalo aquí arriba</button></span>
+      </div>
+    </div>
+    <div class="ch__stage" id="chStage">
+      <div class="ch__can" id="chCan"><span id="chCanLabel">Jamaica · 355 ml</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ARMA TU CAJA (§22) ===== -->
+<section id="caja">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2>Arma tu caja</h2>
+      <p>Elige el tamaño, mezcla los sabores que quieras y llévate la caja completa. Sin descuentos inventados: cada bebida cuesta lo que cuesta.</p>
+    </div>
+    <div class="box__wrap">
+      <div>
+        <div class="box__sizes" id="boxSizes" role="group" aria-label="Tamaño de la caja"></div>
+        <div class="picker" id="picker"></div>
+      </div>
+      <aside class="box__side">
+        <div style="display:flex;justify-content:space-between;align-items:baseline">
+          <strong id="boxCount">0 de 12</strong>
+          <span class="mono" id="boxLeft">faltan 12</span>
+        </div>
+        <div class="meter"><i id="boxMeter"></i></div>
+        <ul id="boxList"><li style="color:var(--ink-3)">Tu caja está vacía.</li></ul>
+        <div style="display:flex;justify-content:space-between;font-weight:700;padding-top:10px;border-top:1px solid var(--line)">
+          <span>Total</span><span class="price" data-demo title="Precio de maqueta" id="boxTotal">$0</span>
+        </div>
+        <button class="btn btn--p" id="boxAdd" disabled>Agregar la caja al carrito</button>
+        <p style="font-size:11.5px;color:var(--ink-3);margin-top:10px">Requiere en Shopify: producto de caja con propiedades de línea, o un bundle app. Ver notas de implementación.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SEGUNDA VIDA (§24 §25) ===== -->
+<section id="segunda">
+  <div class="wrap sv">
+    <div id="svArt"></div>
+    <div>
+      <div class="sec__head">
+        <h2>Segunda Vida</h2>
+        <p>La botella de vidrio no se acaba cuando se acaba la kombucha. La suscripción existe, entre otras cosas, para poder recuperarla — la entrega recurrente es lo que hace posible el retorno.</p>
+      </div>
+      <div class="sv__steps" id="svSteps"></div>
+      <p style="font-size:12px;color:var(--ink-3);margin-top:14px">Las reglas exactas del programa (depósito, crédito, puntos de retorno) deben tomarse del sitio en vivo antes de publicar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SUSCRIPCIÓN (§23) ===== -->
+<section>
+  <div class="wrap">
+    <div class="sec__head">
+      <h2>Tu refri, siempre lleno.</h2>
+      <p>Arma tu pack, elige cada cuándo llega y cambia los sabores cuando quieras.</p>
+    </div>
+    <div class="worlds">
+      <div class="world" style="--c:var(--mate)"><h3>Hasta 15%</h3><p>De ahorro en cajas y packs suscritos. El porcentaje vigente lo controla Shopify — no se fija en el código.</p><div class="mono">Ahorro</div></div>
+      <div class="world" style="--c:var(--moras)"><h3>Tú eliges</h3><p>Periodicidad y sabores. Cambias la mezcla entre entregas sin volver a empezar.</p><div class="mono">Flexibilidad</div></div>
+      <div class="world" style="--c:var(--jengibre)"><h3>Retorno</h3><p>La entrega recurrente es la que permite recoger las botellas y darles Segunda Vida.</p><div class="mono">Circular</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TIENDAS (§26) ===== -->
+<section id="tiendas">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2>Dónde comprar</h2>
+      <p>Puntos de venta en CDMX y área metropolitana. Toca “Cómo llegar” y se abre tu app de mapas.</p>
+    </div>
+    <div class="storefilter" id="storeFilter" role="group" aria-label="Filtrar tiendas"></div>
+    <div class="stores" id="stores"></div>
+    <p style="font-size:12px;color:var(--ink-3);margin-top:16px">Lista parcial reconstruida de fuentes públicas. El directorio completo debe importarse del sitio en vivo.</p>
+  </div>
+</section>
+
+<!-- ===== FAQ / AEO (§35 §36) ===== -->
+<section>
+  <div class="wrap" style="max-width:840px">
+    <div class="sec__head"><h2>Preguntas frecuentes</h2></div>
+    <div class="faq" id="faq"></div>
+  </div>
+</section>
+</div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="ft">
+      <div>
+        <div class="logo" style="color:#fff">VIDA BEBIDA<span style="color:#9C8B94">CIUDAD DE MÉXICO</span></div>
+        <p style="font-size:13.5px;color:#C4B2BA;margin-top:12px;max-width:32ch">Kombucha, yerba mate, kéfir, vinagre y shots. Hechos en México.</p>
+      </div>
+      <div><h5>Bebidas</h5><ul>
+        <li><a href="#mundos">Kombucha</a></li><li><a href="#mundos">Capibara</a></li>
+        <li><a href="#chesca">CHESCA</a></li><li><a href="#mundos">Kéfir</a></li>
+        <li><a href="#mundos">Super Shots</a></li><li><a href="#mundos">Vinagre de kombucha</a></li></ul></div>
+      <div><h5>Comprar</h5><ul>
+        <li><a href="#caja">Arma tu caja</a></li><li><a href="#">Arma tu pack · suscripción</a></li>
+        <li><a href="#tiendas">Puntos de venta</a></li><li><a href="#">Distribuidor</a></li>
+        <li><a href="#">Merch</a></li></ul></div>
+      <div><h5>Casa</h5><ul>
+        <li><a href="#segunda">Segunda Vida</a></li><li><a href="#">Nosotros</a></li>
+        <li><a href="#">Aviso de privacidad</a></li><li><a href="mailto:ventas@vidabebida.com">ventas@vidabebida.com</a></li></ul></div>
+    </div>
+    <div class="ft__legal">
+      <span>Prototipo de rediseño — no es la tienda en vivo.</span>
+      <span>C. Guillermo Prieto #67 Local 3, Col. San Rafael, Cuauhtémoc, 06470 CDMX</span>
+    </div>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Carrito" aria-hidden="true">
+  <div class="drawer__hd"><h3>Tu carrito</h3><button class="x" id="drawerX" aria-label="Cerrar carrito">×</button></div>
+  <div class="ship" id="ship"></div>
+  <div class="drawer__body" id="cartBody"></div>
+  <div class="xsell" id="xsell" hidden></div>
+  <div class="drawer__ft">
+    <div class="tot"><span>Total</span><span class="price" data-demo title="Precio de maqueta" id="cartTotal">$0</span></div>
+    <p style="font-size:11.5px;color:var(--ink-3);margin:0 0 12px">Impuestos y envío se calculan en el checkout de Shopify.</p>
+    <button class="btn btn--p" id="checkout">Ir al checkout</button>
+  </div>
+</aside>
+
+<aside class="qv" id="qv" role="dialog" aria-modal="true" aria-label="Vista rápida" aria-hidden="true">
+  <div class="drawer__hd"><h3 id="qvKicker">Vista rápida</h3><button class="x" id="qvX" aria-label="Cerrar">×</button></div>
+  <div class="qv__body" id="qvBody"></div>
+  <div class="qv__ft"><button class="btn btn--s" id="qvFull">Ver producto</button><button class="btn btn--p" id="qvAdd">Agregar</button></div>
+</aside>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* ---------------------------------------------------------------
+   CATÁLOGO — nombres, sabores y formatos corroborados en fuentes
+   públicas. price = MAQUETA (demo), marcado en la UI. Reemplazar
+   por /products.json de la tienda en vivo antes de publicar.
+---------------------------------------------------------------- */
+var FAM = {
+  kombucha:{name:"Kombucha", c:"var(--mate)", line:"Té verde y negro, SCOBY, fruta y raíces. Ligeramente gasificada."},
+  capibara:{name:"Capibara", c:"var(--mango)", line:"Yerba mate — Ilex paraguariensis — con sabores."},
+  chesca:{name:"CHESCA", c:"var(--jamaica)", line:"Agua fresca gasificada, lata de 355 ml."},
+  kefir:{name:"Kéfir", c:"var(--coco)", line:"Fermento de bacterias y levaduras."},
+  shots:{name:"Super Shots", c:"var(--jengibre)", line:"60 ml. Ritual rápido."},
+  vinagre:{name:"Vinagre", c:"var(--vinagre)", line:"Vinagre de kombucha."}
+};
+var P = [
+  {id:"k-org", fam:"kombucha", name:"Kombucha Original", flavor:"Original", fmt:"355 ml · vidrio", c:"var(--mate)", price:65, tags:["fermentado","fresco","comida"], handle:"kombucha-original-355ml", box:true},
+  {id:"k-jen", fam:"kombucha", name:"Kombucha Jengibre Cítrico", flavor:"Jengibre cítrico", fmt:"355 ml · vidrio", c:"var(--jengibre)", price:65, tags:["fermentado","energia","nuevo"], handle:"kombucha-jengibre-citrico-355ml", box:true},
+  {id:"k-mor", fam:"kombucha", name:"Kombucha Moras Silvestres", flavor:"Moras silvestres", fmt:"355 ml · vidrio", c:"var(--moras)", price:65, tags:["fermentado","fresco"], box:true},
+  {id:"k-jam", fam:"kombucha", name:"Kombucha Jamaica", flavor:"Jamaica", fmt:"355 ml · vidrio", c:"var(--jamaica)", price:65, tags:["fermentado","fresco","comida"], box:true},
+  {id:"k-mat", fam:"kombucha", name:"Kombucha Mate Energy", flavor:"Mate energy", fmt:"355 ml · vidrio", c:"var(--mate)", price:68, tags:["energia","fermentado"], box:true},
+  {id:"k-500", fam:"kombucha", name:"Kombucha 500 ml", flavor:"Sabor a elegir", fmt:"500 ml · vidrio", c:"var(--mate)", price:88, tags:["fermentado","comida"]},
+  {id:"k-bid", fam:"kombucha", name:"Bidón de kombucha", flavor:"Sabor a elegir", fmt:"3 L · bidón", c:"var(--mate)", price:390, tags:["fermentado","comida"], note:"Formato para casa. Retornable."},
+  {id:"k-c12", fam:"kombucha", name:"Caja de 12 kombuchas", flavor:"Mezcla", fmt:"12 × 355 ml", c:"var(--mate)", price:740, tags:["fermentado"], handle:"caja-de-12-kombuchas-355ml"},
+  {id:"k-c24", fam:"kombucha", name:"Caja de 24 kombuchas", flavor:"Mezcla", fmt:"24 × 355 ml", c:"var(--mate)", price:1450, tags:["fermentado"], handle:"caja-de-24-kombuchas-355ml"},
+  {id:"cp-jam", fam:"capibara", name:"Capibara Jamaica", flavor:"Jamaica", fmt:"355 ml", c:"var(--jamaica)", price:62, tags:["energia","fresco"], box:true},
+  {id:"cp-man", fam:"capibara", name:"Capibara Mandarina", flavor:"Mandarina", fmt:"355 ml", c:"var(--mango)", price:62, tags:["energia","nuevo"], box:true},
+  {id:"cp-jm", fam:"capibara", name:"Capibara Jengibre Menta", flavor:"Jengibre menta", fmt:"355 ml", c:"var(--limon)", price:62, tags:["energia","fresco","nuevo"], box:true},
+  {id:"ch-jam", fam:"chesca", name:"CHESCA Jamaica", flavor:"Jamaica", fmt:"lata 355 ml", c:"var(--jamaica)", price:38, tags:["fresco","comida"], box:true},
+  {id:"ch-lim", fam:"chesca", name:"CHESCA Limón", flavor:"Limón", fmt:"lata 355 ml", c:"var(--limon)", price:38, tags:["fresco","comida"], box:true},
+  {id:"ch-man", fam:"chesca", name:"CHESCA Mango", flavor:"Mango", fmt:"lata 355 ml", c:"var(--mango)", price:38, tags:["fresco","nuevo","comida"], box:true},
+  {id:"kf-12", fam:"kefir", name:"Kéfir — paquete de 12", flavor:"Ver tienda", fmt:"12 piezas", c:"var(--coco)", price:690, tags:["fermentado"], handle:"kefir-de-coco"},
+  {id:"s-imm", fam:"shots", name:"Shot Immune", flavor:"Limón, jengibre, cúrcuma", fmt:"60 ml", c:"var(--jengibre)", price:45, tags:["energia","nuevo"], ing:["Vinagre de kombucha","Jugo de limón","Jugo de jengibre","Jugo de cúrcuma","Sorbato de sodio"]},
+  {id:"s-boo", fam:"shots", name:"Shot Boost", flavor:"Cafeína + adaptógenos", fmt:"60 ml", c:"var(--mango)", price:45, tags:["energia"]},
+  {id:"s-foc", fam:"shots", name:"Shot Focus", flavor:"Adaptógenos", fmt:"60 ml", c:"var(--moras)", price:45, tags:["energia"]},
+  {id:"s-c12", fam:"shots", name:"Caja de 12 shots", flavor:"Immune", fmt:"12 × 60 ml", c:"var(--jengibre)", price:490, tags:["energia"], handle:"caja-de-12-piezas-de-shot-immune"},
+  {id:"v-kom", fam:"vinagre", name:"Vinagre de kombucha", flavor:"Natural", fmt:"Ver tienda", c:"var(--vinagre)", price:95, tags:["comida","fermentado"]}
+];
+var MOODS = [
+  {id:"fresco", label:"Algo fresco", sub:"Para la tarde, con hielo.", c:"var(--limon)", title:"Fresco, con gas y sin complicarse"},
+  {id:"energia", label:"Algo con energía", sub:"Mate, cafeína, adaptógenos.", c:"var(--mango)", title:"Para arrancar el día"},
+  {id:"fermentado", label:"Algo fermentado", sub:"Kombucha y kéfir.", c:"var(--moras)", title:"Fermentación de la casa"},
+  {id:"comida", label:"Para la comida", sub:"Lo que acompaña el plato.", c:"var(--jamaica)", title:"Para poner en la mesa"},
+  {id:"nuevo", label:"Quiero probar algo nuevo", sub:"Lo que casi nadie pide.", c:"var(--mate)", title:"Prueba algo distinto"}
+];
+var STORES = [
+  {n:"Vida Bebida — Observatorio", t:"tienda", a:"Av. Observatorio 444, 16 de Septiembre, Miguel Hidalgo, 11810 CDMX"},
+  {n:"Culinaria Vegetal", t:"aliado", a:"Mérida 140, Roma Nte., Cuauhtémoc, 06700 CDMX"},
+  {n:"Adamanta Santa Fe", t:"aliado", a:"C. 3 55 B, Zedec Sta Fé, Álvaro Obregón, 01219 CDMX"},
+  {n:"Adamanta Escandón", t:"aliado", a:"Av. José Martí 195, Escandón I Secc, Miguel Hidalgo, 11800 CDMX"},
+  {n:"Palmas Hills", t:"aliado", a:"Blvd. Interlomas Mz 1-Lote 1, Interlomas, 52763 Edo. de México"},
+  {n:"Lomas de Santa Fe", t:"aliado", a:"Vasco de Quiroga 3800, Contadero, Cuajimalpa, 05109 CDMX"}
+];
+var FAQ = [
+  ["¿Qué es Vida Bebida?","Una empresa mexicana que produce kombucha natural con insumos locales y técnica artesanal, con base en la Ciudad de México. Su catálogo incluye kombucha, yerba mate (Capibara), agua fresca gasificada (CHESCA), kéfir, vinagre de kombucha y Super Shots."],
+  ["¿Qué es la kombucha?","Una bebida hecha a partir de la fermentación de té verde y té negro con SCOBY — una cultura simbiótica de levaduras y bacterias. La receta de Vida Bebida se compone de té verde, té negro, azúcar orgánica para la fermentación, frutas, raíces y SCOBY. Es 100% natural, probiótica y ligeramente gasificada."],
+  ["¿Qué es CHESCA?","Un agua fresca gasificada de Vida Bebida en lata de 355 ml, disponible en jamaica, limón y mango."],
+  ["¿Qué es Capibara?","La línea de yerba mate de Vida Bebida. La yerba mate viene de las hojas de Ilex paraguariensis, originaria de los bosques tropicales de Brasil, Paraguay y Argentina; Capibara la mezcla con sabores como jamaica, mandarina y jengibre-menta."],
+  ["¿Qué sabores de kombucha tiene Vida Bebida?","Los sabores reportados públicamente son original, jengibre cítrico, moras silvestres, jamaica y mate energy. El catálogo vigente en vidabebida.com manda."],
+  ["¿En qué formatos viene la kombucha?","En 355 ml, 500 ml y bidones de 3 litros. También hay cajas de 12 y de 24 piezas de 355 ml."],
+  ["¿Vida Bebida tiene suscripción?","Sí. “Arma tu pack” permite elegir periodicidad y sabores, con un ahorro reportado de hasta 15%, y cambiar la mezcla entre entregas."],
+  ["¿Cómo funciona Segunda Vida?","El envase de vidrio se recupera para volver a usarse. La entrega recurrente de la suscripción es lo que hace posible el retorno, y el etiquetado está pensado para que la botella se pueda reutilizar."],
+  ["¿Dónde comprar Vida Bebida?","En línea en vidabebida.com con envío gratis en CDMX y área metropolitana a partir de $300, y en puntos de venta aliados en la ciudad."],
+  ["¿Cuánto cuesta el envío?","El envío es gratis en CDMX y área metropolitana en compras superiores a $300. El resto se calcula en el checkout."]
+];
+var FREE_SHIP = 300;
+
+/* ---------- helpers ---------- */
+function $(s,r){return (r||document).querySelector(s)}
+function el(t,c,h){var e=document.createElement(t); if(c)e.className=c; if(h!=null)e.innerHTML=h; return e}
+function money(n){return "$"+n.toLocaleString("es-MX")}
+function byId(id){for(var i=0;i<P.length;i++)if(P[i].id===id)return P[i];return null}
+var toastT;
+function toast(m){var t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove("on")},2200)}
+
+function packHTML(c,fmt){
+  return '<div class="pack" style="--c:'+c+'"><span class="pack__slot">asset</span><span class="pack__fmt">'+fmt+'</span></div>';
+}
+function cardHTML(p){
+  return '<article class="card" style="--c:'+p.c+'">'+
+    '<div class="card__media"><span class="card__fam">'+FAM[p.fam].name+'</span>'+packHTML(p.c,p.fmt)+'</div>'+
+    '<div class="card__b"><h4><a href="#/p/'+p.id+'" style="text-decoration:none">'+p.name+'</a></h4>'+
+      '<span class="card__flav">'+p.flavor+' · '+p.fmt+'</span>'+
+      '<button class="card__qv" data-qv="'+p.id+'">Ver detalles</button>'+
+      '<div class="card__row"><span class="price" data-demo title="Precio de maqueta — pendiente del catálogo en vivo">'+money(p.price)+'</span>'+
+      '<button class="add" data-add="'+p.id+'">Agregar</button></div>'+
+    '</div></article>';
+}
+function renderGrid(node,list){node.innerHTML=list.map(cardHTML).join("")}
+
+/* ---------- announcement (§01 §02) ---------- */
+var annCta=$("#annCta"), annPanel=$("#annPanel");
+annCta.addEventListener("click",function(){
+  var open=annPanel.classList.toggle("open");
+  annCta.setAttribute("aria-expanded",String(open));
+  if(open) setTimeout(function(){$("#annEmail").focus()},60);
+});
+$("#annForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  $("#annForm").style.display="none";
+  $("#annOk").classList.add("on");
+  toast("Código de 10% en camino");
+});
+$("#chescaToOffer").addEventListener("click",function(){
+  window.scrollTo({top:0,behavior:"smooth"});
+  if(!annPanel.classList.contains("open")) annCta.click();
+});
+/* keep the sticky header offset in sync with the bar's real height */
+function syncBar(){document.documentElement.style.setProperty("--bar-h",$("#ann").offsetHeight+"px")}
+window.addEventListener("resize",syncBar);
+
+/* ---------- moods ---------- */
+var moodsNode=$("#moods");
+moodsNode.innerHTML=MOODS.map(function(m){
+  return '<button class="mood" style="--c:'+m.c+'" data-mood="'+m.id+'" aria-pressed="false"><b>'+m.label+'</b><small>'+m.sub+'</small><i></i></button>';
+}).join("");
+moodsNode.addEventListener("click",function(e){
+  var b=e.target.closest("[data-mood]"); if(!b) return;
+  var id=b.getAttribute("data-mood");
+  Array.prototype.forEach.call(moodsNode.children,function(x){x.setAttribute("aria-pressed",String(x===b))});
+  var m; for(var i=0;i<MOODS.length;i++) if(MOODS[i].id===id) m=MOODS[i];
+  var list=P.filter(function(p){return p.tags.indexOf(id)>-1}).slice(0,4);
+  $("#antojoTitle").textContent=m.title;
+  renderGrid($("#antojoGrid"),list);
+  $("#antojoOut").hidden=false;
+});
+$("#antojoReset").addEventListener("click",function(){
+  $("#antojoOut").hidden=true;
+  Array.prototype.forEach.call(moodsNode.children,function(x){x.setAttribute("aria-pressed","false")});
+  moodsNode.scrollIntoView({behavior:"smooth",block:"center"});
+});
+
+/* ---------- worlds + catalogue ---------- */
+$("#worlds").innerHTML=Object.keys(FAM).map(function(k){
+  var f=FAM[k], n=P.filter(function(p){return p.fam===k}).length;
+  return '<a class="world" style="--c:'+f.c+'" href="#/c/'+k+'"><h3>'+f.name+'</h3><p>'+f.line+'</p><div class="mono">'+n+(n===1?" producto":" productos")+'</div></a>';
+}).join("");
+renderGrid($("#allGrid"),P);
+
+/* ---------- CHESCA ---------- */
+var CH=[{id:"ch-jam",l:"Jamaica",c:"#C3175B"},{id:"ch-lim",l:"Limón",c:"#7C9E1B"},{id:"ch-man",l:"Mango",c:"#D9720E"}];
+$("#chFlav").innerHTML=CH.map(function(f,i){return '<button data-ch="'+f.id+'" aria-pressed="'+(i===0)+'">'+f.l+'</button>'}).join("");
+function setChesca(id){
+  var f; for(var i=0;i<CH.length;i++) if(CH[i].id===id) f=CH[i];
+  $("#chesca").style.setProperty("--ch",f.c);
+  $("#chCanLabel").textContent=f.l+" · 355 ml";
+  var can=$("#chCan"); can.style.transform="scale(1.04) rotate(-2deg)";
+  setTimeout(function(){can.style.transform=""},420);
+  Array.prototype.forEach.call($("#chFlav").children,function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-ch")===id))});
+}
+$("#chFlav").addEventListener("click",function(e){var b=e.target.closest("[data-ch]"); if(b) setChesca(b.getAttribute("data-ch"))});
+setChesca("ch-jam");
+/* a few bubbles — only here (§33) */
+if(!matchMedia("(prefers-reduced-motion:reduce)").matches){
+  var stage=$("#chStage");
+  for(var i=0;i<9;i++){
+    var b=el("div","bub"); var s=4+Math.random()*9;
+    b.style.width=b.style.height=s+"px";
+    b.style.left=(12+Math.random()*76)+"%"; b.style.bottom="0";
+    b.style.animationDuration=(5+Math.random()*5)+"s";
+    b.style.animationDelay=(-Math.random()*8)+"s";
+    stage.appendChild(b);
+  }
+}
+
+/* ---------- arma tu caja (§22) ---------- */
+var boxSize=12, box={};
+var eligible=P.filter(function(p){return p.box});
+$("#boxSizes").innerHTML=[12,24].map(function(n,i){
+  return '<button data-size="'+n+'" aria-pressed="'+(i===0)+'">Caja de '+n+'</button>';
+}).join("");
+$("#boxSizes").addEventListener("click",function(e){
+  var b=e.target.closest("[data-size]"); if(!b) return;
+  boxSize=+b.getAttribute("data-size");
+  Array.prototype.forEach.call($("#boxSizes").children,function(x){x.setAttribute("aria-pressed",String(x===b))});
+  renderBox();
+});
+$("#picker").innerHTML=eligible.map(function(p){
+  return '<div class="pick" style="--c:'+p.c+'"><span class="sw"></span><div><b>'+p.name.replace(/^(Kombucha|Capibara|CHESCA) /,"")+'</b><small>'+FAM[p.fam].name+'</small></div>'+
+    '<span class="qty"><button data-box="-" data-p="'+p.id+'" aria-label="Quitar '+p.name+'">−</button><span id="q-'+p.id+'">0</span><button data-box="+" data-p="'+p.id+'" aria-label="Agregar '+p.name+'">+</button></span></div>';
+}).join("");
+$("#picker").addEventListener("click",function(e){
+  var b=e.target.closest("[data-box]"); if(!b) return;
+  var id=b.getAttribute("data-p"), n=box[id]||0, total=boxTotalCount();
+  if(b.getAttribute("data-box")==="+"){ if(total>=boxSize){toast("La caja de "+boxSize+" ya está llena");return} box[id]=n+1; }
+  else if(n>0){ box[id]=n-1; if(!box[id]) delete box[id]; }
+  renderBox();
+});
+function boxTotalCount(){var t=0;for(var k in box)t+=box[k];return t}
+function renderBox(){
+  var n=boxTotalCount(), price=0;
+  for(var k in box) price+=byId(k).price*box[k];
+  eligible.forEach(function(p){var q=$("#q-"+p.id); if(q) q.textContent=box[p.id]||0});
+  $("#boxCount").textContent=n+" de "+boxSize;
+  $("#boxLeft").textContent = n>=boxSize ? "completa" : "faltan "+(boxSize-n);
+  $("#boxMeter").style.width=Math.min(100,n/boxSize*100)+"%";
+  $("#boxTotal").textContent=money(price);
+  $("#boxAdd").disabled = n!==boxSize;
+  var ks=Object.keys(box);
+  $("#boxList").innerHTML = ks.length
+    ? ks.map(function(k){return '<li><span>'+byId(k).name+'</span><span>×'+box[k]+'</span></li>'}).join("")
+    : '<li style="color:var(--ink-3)">Tu caja está vacía.</li>';
+}
+$("#boxAdd").addEventListener("click",function(){
+  var items=Object.keys(box).map(function(k){return byId(k).name+" ×"+box[k]});
+  var price=0; for(var k in box) price+=byId(k).price*box[k];
+  cart.push({id:"caja-"+Date.now(), name:"Caja Vida de "+boxSize, flavor:items.join(", "), fmt:boxSize+" piezas", c:"var(--jamaica)", price:price, q:1});
+  box={}; renderBox(); renderCart(); openCart();
+  toast("Caja agregada");
+});
+renderBox();
+
+/* ---------- segunda vida loop (§25) ---------- */
+var SV=[["Tomas","Te la acabas."],["Guardas","La botella se queda contigo, limpia."],["Regresas","Vuelve con tu siguiente entrega."],["Reutilizamos","Se lava y se vuelve a llenar."],["Segunda Vida","La misma botella, otra vez."]];
+$("#svSteps").innerHTML=SV.map(function(s,i){
+  return '<div class="sv__step" data-i="'+i+'"><span class="n">0'+(i+1)+'</span><div><b>'+s[0]+'</b><small>'+s[1]+'</small></div></div>';
+}).join("");
+(function(){
+  var R=118, cx=140, cy=140, pts=SV.map(function(_,i){
+    var a=-Math.PI/2 + i*2*Math.PI/SV.length;
+    return [cx+R*Math.cos(a), cy+R*Math.sin(a)];
+  });
+  var svg='<svg viewBox="0 0 280 280" width="100%" style="max-width:300px" role="img" aria-label="Ciclo de la botella: tomas, guardas, regresas, reutilizamos, segunda vida">'+
+    '<circle cx="140" cy="140" r="118" fill="none" stroke="var(--line)" stroke-width="1.5"/>'+
+    '<circle cx="140" cy="140" r="118" fill="none" stroke="var(--mate)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="741" stroke-dashoffset="741" id="svArc"/>';
+  pts.forEach(function(p,i){
+    svg+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="7" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="1.5" id="svDot'+i+'"/>'+
+         '<text x="'+p[0].toFixed(1)+'" y="'+(p[1]+3.5).toFixed(1)+'" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="var(--ink-3)">'+(i+1)+'</text>';
+  });
+  svg+='<text x="140" y="136" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-size="19" fill="var(--ink)">SEGUNDA</text>'+
+       '<text x="140" y="158" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-size="19" fill="var(--mate)">VIDA</text></svg>';
+  $("#svArt").innerHTML=svg;
+
+  var step=0, arc=$("#svArc");
+  function tick(){
+    document.querySelectorAll(".sv__step").forEach(function(s,i){s.classList.toggle("on",i===step)});
+    for(var i=0;i<SV.length;i++){
+      var d=$("#svDot"+i); if(d) d.setAttribute("fill", i<=step ? "var(--mate)" : "var(--surface)");
+    }
+    if(arc) arc.setAttribute("stroke-dashoffset", String(741 - 741*((step+1)/SV.length)));
+    step=(step+1)%SV.length;
+  }
+  tick();
+  if(!matchMedia("(prefers-reduced-motion:reduce)").matches){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting && !window.__svT) window.__svT=setInterval(tick,2100);
+        else if(!e.isIntersecting && window.__svT){clearInterval(window.__svT);window.__svT=null}
+      });
+    },{threshold:.3});
+    io.observe($("#segunda"));
+  }
+})();
+
+/* ---------- tiendas ---------- */
+var storeF="todas";
+$("#storeFilter").innerHTML=["todas","tienda","aliado"].map(function(t,i){
+  var l={todas:"Todas",tienda:"Tienda Vida Bebida",aliado:"Punto aliado"}[t];
+  return '<button data-f="'+t+'" aria-pressed="'+(i===0)+'">'+l+'</button>';
+}).join("");
+function renderStores(){
+  $("#stores").innerHTML=STORES.filter(function(s){return storeF==="todas"||s.t===storeF}).map(function(s){
+    return '<div class="store"><b>'+s.n+'</b><address>'+s.a+'</address>'+
+      '<a href="https://maps.google.com/?q='+encodeURIComponent(s.n+" "+s.a)+'" target="_blank" rel="noopener">Cómo llegar →</a></div>';
+  }).join("");
+}
+$("#storeFilter").addEventListener("click",function(e){
+  var b=e.target.closest("[data-f]"); if(!b) return;
+  storeF=b.getAttribute("data-f");
+  Array.prototype.forEach.call($("#storeFilter").children,function(x){x.setAttribute("aria-pressed",String(x===b))});
+  renderStores();
+});
+renderStores();
+
+/* ---------- faq ---------- */
+$("#faq").innerHTML=FAQ.map(function(f,i){
+  return '<details'+(i===0?" open":"")+'><summary>'+f[0]+'</summary><p>'+f[1]+'</p></details>';
+}).join("");
+
+/* ---------- cart (§28 §29) ---------- */
+var cart=[];
+function openCart(){lastFocus=document.activeElement;$("#drawer").classList.add("on");$("#scrim").classList.add("on");$("#drawer").setAttribute("aria-hidden","false");$("#drawerX").focus()}
+function closeAll(){
+  $("#drawer").classList.remove("on");$("#qv").classList.remove("on");$("#scrim").classList.remove("on");
+  $("#drawer").setAttribute("aria-hidden","true");$("#qv").setAttribute("aria-hidden","true");
+}
+$("#cartBtn").addEventListener("click",openCart);
+$("#drawerX").addEventListener("click",closeAll);
+$("#qvX").addEventListener("click",closeAll);
+$("#scrim").addEventListener("click",closeAll);
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeAll();if(typeof closeSheets==="function")closeSheets()}});
+$("#checkout").addEventListener("click",function(){toast("En producción: /checkout de Shopify")});
+
+function addToCart(id){
+  var p=byId(id); if(!p) return;
+  var f=null; for(var i=0;i<cart.length;i++) if(cart[i].id===id) f=cart[i];
+  if(f) f.q++; else cart.push({id:p.id,name:p.name,flavor:p.flavor,fmt:p.fmt,c:p.c,price:p.price,q:1});
+  renderCart(); openCart(); toast(p.name+" agregada");
+}
+function cartSubtotal(){var t=0;cart.forEach(function(i){t+=i.price*i.q});return t}
+function renderCart(){
+  var n=0; cart.forEach(function(i){n+=i.q});
+  $("#cartN").textContent=n;
+  var sub=cartSubtotal();
+  var left=FREE_SHIP-sub;
+  $("#ship").innerHTML = left>0
+    ? 'Te faltan <b>'+money(left)+'</b> para envío gratis en CDMX y área metropolitana.<div class="meter"><i style="width:'+Math.min(100,sub/FREE_SHIP*100)+'%"></i></div>'
+    : '<b>Envío gratis</b> en CDMX y área metropolitana.<div class="meter"><i style="width:100%"></i></div>';
+  $("#cartBody").innerHTML = cart.length ? cart.map(function(i){
+    return '<div class="li" style="--c:'+i.c+'"><span class="sw"></span><div><b>'+i.name+'</b><small>'+i.fmt+'</small>'+
+      '<span class="qty"><button data-c="-" data-i="'+i.id+'" aria-label="Quitar uno">−</button><span class="mono" style="font-size:12px">'+i.q+'</span><button data-c="+" data-i="'+i.id+'" aria-label="Agregar uno">+</button></span></div>'+
+      '<span class="price" data-demo title="Precio de maqueta">'+money(i.price*i.q)+'</span></div>';
+  }).join("") : '<p class="empty">Todavía no hay nada.<br>Empieza por <a href="#antojo" style="color:var(--jamaica)">¿qué se te antoja?</a></p>';
+  $("#cartTotal").textContent=money(sub);
+  /* cross-sell by moment (§29) */
+  var xs=$("#xsell");
+  if(cart.length){
+    var inCart={}, fams={};
+    cart.forEach(function(i){inCart[i.id]=1; var p=byId(i.id); if(p) fams[p.fam]=1});
+    var lead, sug;
+    if(fams.chesca){
+      lead="Para probar otros sabores";
+      sug=P.filter(function(p){return p.fam==="chesca" && !inCart[p.id]});
+    } else if(fams.kombucha){
+      lead="También en formato bidón";
+      sug=P.filter(function(p){return p.fam==="kombucha" && !inCart[p.id] && p.fmt.indexOf("355")<0});
+    } else {
+      lead="Completa tu caja";
+      sug=P.filter(function(p){return !fams[p.fam] && p.box});
+    }
+    if(sug.length<2) sug=sug.concat(P.filter(function(p){return !fams[p.fam] && p.box && !inCart[p.id]}));
+    sug=sug.slice(0,3);
+    xs.hidden=false;
+    xs.innerHTML='<div class="mono">'+lead+'</div>'+sug.map(function(p){return '<button data-add="'+p.id+'">'+p.name+' +</button>'}).join("");
+  } else xs.hidden=true;
+}
+renderCart();
+
+/* ---------- quick view (§18) ---------- */
+var qvCur=null;
+function openQV(id){
+  var p=byId(id); if(!p) return; qvCur=p;
+  $("#qvKicker").textContent=FAM[p.fam].name;
+  var ing = p.ing ? '<dt>Adentro</dt><dd>'+p.ing.join(" · ")+'</dd>' : '<dt>Adentro</dt><dd>Lista de ingredientes pendiente del catálogo en vivo.</dd>';
+  $("#qvBody").innerHTML='<div class="qv__hero" style="--c:'+p.c+'">'+packHTML(p.c,p.fmt)+'</div>'+
+    '<h3>'+p.name+'</h3><span class="price" data-demo title="Precio de maqueta">'+money(p.price)+'</span>'+
+    '<dl><dt>Sabor</dt><dd>'+p.flavor+'</dd><dt>Formato</dt><dd>'+p.fmt+'</dd>'+
+    '<dt>Familia</dt><dd>'+FAM[p.fam].name+' — '+FAM[p.fam].line+'</dd>'+ing+
+    (p.note?'<dt>Nota</dt><dd>'+p.note+'</dd>':'')+
+    '<dt>Envío</dt><dd>Gratis en CDMX y área metropolitana desde '+money(FREE_SHIP)+'.</dd></dl>';
+  $("#qv").classList.add("on"); $("#scrim").classList.add("on"); $("#qv").setAttribute("aria-hidden","false"); $("#qvX").focus();
+}
+$("#qvAdd").addEventListener("click",function(){if(qvCur){addToCart(qvCur.id)}});
+$("#qvFull").addEventListener("click",function(){if(qvCur){closeAll();location.hash="#/p/"+qvCur.id}});
+
+/* ---------- delegated actions ---------- */
+document.addEventListener("click",function(e){
+  var v=e.target.closest("[data-var]");
+  if(v){location.hash="#/p/"+v.getAttribute("data-var");return}
+  var a=e.target.closest("[data-add]");
+  if(a){addToCart(a.getAttribute("data-add"));return}
+  var q=e.target.closest("[data-qv]");
+  if(q){openQV(q.getAttribute("data-qv"));return}
+  var c=e.target.closest("[data-c]");
+  if(c){
+    var id=c.getAttribute("data-i");
+    for(var i=0;i<cart.length;i++) if(cart[i].id===id){
+      if(c.getAttribute("data-c")==="+") cart[i].q++;
+      else { cart[i].q--; if(cart[i].q<1) cart.splice(i,1); }
+      break;
+    }
+    renderCart();
+  }
+});
+
+/* ===============================================================
+   INGREDIENTES DOCUMENTADOS (§20 §21)
+   Solo lo que la marca ya publica. Donde no hay dato, el
+   componente muestra el hueco en vez de rellenarlo.
+================================================================ */
+var ING_KOMBUCHA=[["Té verde","Base de la fermentación."],["Té negro","Base de la fermentación."],["Azúcar orgánica","Alimenta la fermentación."],["Fruta",""],["Raíces",""],["SCOBY","Cultura simbiótica de levaduras y bacterias."]];
+var ING_CAPIBARA=[["Yerba mate","Hoja de Ilex paraguariensis, originaria de los bosques tropicales de Brasil, Paraguay y Argentina."]];
+var ING_IMMUNE=[["Vinagre de kombucha",""],["Jugo de limón",""],["Jugo de jengibre",""],["Jugo de cúrcuma",""],["Sorbato de sodio","Conservador."]];
+P.forEach(function(p){
+  if(p.fam==="kombucha") p.ingr=ING_KOMBUCHA;
+  else if(p.fam==="capibara") p.ingr=ING_CAPIBARA;
+  else if(p.id==="s-imm"||p.id==="s-c12") p.ingr=ING_IMMUNE;
+});
+
+/* ---------- focus management for dialogs ---------- */
+var lastFocus=null;
+function trap(node){
+  node.addEventListener("keydown",function(e){
+    if(e.key!=="Tab") return;
+    var f=node.querySelectorAll('a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])');
+    if(!f.length) return;
+    var first=f[0], last=f[f.length-1];
+    if(e.shiftKey && document.activeElement===first){e.preventDefault();last.focus()}
+    else if(!e.shiftKey && document.activeElement===last){e.preventDefault();first.focus()}
+  });
+}
+["#drawer","#qv","#menuSheet","#searchSheet"].forEach(function(sel){trap($(sel))});
+
+/* ---------- mobile menu + search ---------- */
+var menuSheet=$("#menuSheet"), searchSheet=$("#searchSheet");
+$("#menuFams").innerHTML=Object.keys(FAM).map(function(k){
+  return '<a href="#/c/'+k+'" data-close>'+FAM[k].name+'</a>';
+}).join("");
+function openSheet(node){
+  lastFocus=document.activeElement;
+  node.classList.add("on"); node.setAttribute("aria-hidden","false");
+  document.body.style.overflow="hidden";
+  var f=node.querySelector("input")||node.querySelector("button");
+  if(f) setTimeout(function(){f.focus()},60);
+}
+function closeSheets(){
+  [menuSheet,searchSheet].forEach(function(n){n.classList.remove("on");n.setAttribute("aria-hidden","true")});
+  document.body.style.overflow="";
+  $("#menuBtn").setAttribute("aria-expanded","false");
+  if(lastFocus&&lastFocus.focus){lastFocus.focus();lastFocus=null}
+}
+$("#menuBtn").addEventListener("click",function(){openSheet(menuSheet);this.setAttribute("aria-expanded","true")});
+$("#searchBtn").addEventListener("click",function(){openSheet(searchSheet);runSearch()});
+$("#menuX").addEventListener("click",closeSheets);
+$("#searchX").addEventListener("click",closeSheets);
+document.addEventListener("click",function(e){if(e.target.closest("[data-close]"))setTimeout(closeSheets,10)});
+
+function runSearch(){
+  var q=$("#searchInput").value.trim().toLowerCase();
+  var out=$("#searchOut");
+  if(!q){
+    out.innerHTML='<p class="shint">Busca por sabor, familia o formato — “jamaica”, “bidón”, “shot”, “500”.</p>';
+    return;
+  }
+  var hits=P.filter(function(p){
+    return (p.name+" "+p.flavor+" "+p.fmt+" "+FAM[p.fam].name).toLowerCase().indexOf(q)>-1;
+  });
+  out.innerHTML = hits.length
+    ? hits.map(function(p){
+        return '<button class="sres" style="--c:'+p.c+'" data-go="'+p.id+'"><span class="sw"></span>'+
+        '<span><b>'+p.name+'</b><small>'+FAM[p.fam].name+' · '+p.fmt+'</small></span>'+
+        '<span class="price" data-demo title="Precio de maqueta">'+money(p.price)+'</span></button>';
+      }).join("")
+    : '<p class="shint">Nada con “'+q.replace(/</g,"&lt;")+'”. Prueba con un sabor o un formato.</p>';
+}
+$("#searchInput").addEventListener("input",runSearch);
+$("#searchOut").addEventListener("click",function(e){
+  var b=e.target.closest("[data-go]"); if(!b) return;
+  closeSheets(); location.hash="#/p/"+b.getAttribute("data-go");
+});
+
+/* ===============================================================
+   ROUTER — home · colección · ficha de producto (§19)
+================================================================ */
+var viewNode=$("#view"), homeNode=$("#home");
+function crumb(parts){
+  return '<nav class="crumb" aria-label="Ruta"><a href="#/">Inicio</a>'+
+    parts.map(function(x){return '<span aria-hidden="true">/</span>'+(x[1]?'<a href="'+x[1]+'">'+x[0]+'</a>':'<span>'+x[0]+'</span>')}).join("")+'</nav>';
+}
+function relatedFor(p){
+  var same=P.filter(function(x){return x.fam===p.fam && x.id!==p.id});
+  var other=P.filter(function(x){return x.fam!==p.fam && x.box});
+  var lead = same.length ? "Otros sabores de "+FAM[p.fam].name : "También te puede servir";
+  return {lead:lead, list:same.slice(0,2).concat(other.slice(0,2)).slice(0,4)};
+}
+function insideHTML(p){
+  var h='<div class="inside"><div class="inside__hd"><h3>Lo que hay adentro — y ya</h3>'+
+    '<p>La lista completa, sin letra chica.</p></div>';
+  if(p.ingr){
+    h+='<div class="inside__list">'+p.ingr.map(function(x,i){
+      return '<div class="ingr" style="--c:'+p.c+'"><span class="dot">'+(i+1)+'</span>'+
+        '<span><b>'+x[0]+'</b>'+(x[1]?'<small>'+x[1]+'</small>':'')+'</span></div>';
+    }).join("")+'</div>';
+    if(p.fam==="capibara") h+='<div class="inside__pend">El saborizante de '+p.flavor.toLowerCase()+' y el resto de la fórmula se toman de la etiqueta en vivo.</div>';
+  } else {
+    h+='<div class="inside__pend">Lista de ingredientes pendiente del catálogo en vivo. El componente muestra el hueco en vez de rellenarlo.</div>';
+  }
+  return h+'</div>';
+}
+function renderPDP(p){
+  var fam=FAM[p.fam];
+  var variants=P.filter(function(x){return x.fam===p.fam && x.fmt===p.fmt});
+  var formats=P.filter(function(x){return x.fam===p.fam && x.fmt!==p.fmt});
+  var rel=relatedFor(p);
+  var h='<div class="wrap">'+crumb([[fam.name,"#/c/"+p.fam],[p.name,null]])+
+  '<div class="pdp" style="--c:'+p.c+'">'+
+    '<div class="pdp__gal">'+
+      '<div class="pdp__main">'+packHTML(p.c,p.fmt)+'</div>'+
+      '<div class="pdp__thumbs"><div>Foto de producto</div><div>Detalle de etiqueta</div><div>Estilo de vida</div></div>'+
+    '</div>'+
+    '<div>'+
+      '<p class="fam">'+fam.name+'</p><h1>'+p.name+'</h1>'+
+      '<span class="pr price" data-demo title="Precio de maqueta — pendiente del catálogo en vivo">'+money(p.price)+'</span>'+
+      '<p class="lead">'+fam.line+'</p>'+
+      (variants.length>1?'<p class="optlab">Sabor</p><div class="opts">'+variants.map(function(v){
+        return '<button data-var="'+v.id+'" aria-pressed="'+(v.id===p.id)+'">'+v.flavor+'</button>';
+      }).join("")+'</div>':'')+
+      '<p class="optlab">Cantidad</p>'+
+      '<div class="buyrow">'+
+        '<div class="stepper"><button id="pdpMinus" aria-label="Menos">−</button><span id="pdpQty">1</span><button id="pdpPlus" aria-label="Más">+</button></div>'+
+        '<button class="btn btn--p" id="pdpAdd" data-pdpadd="'+p.id+'">Agregar al carrito</button>'+
+      '</div>'+
+      '<div class="deliv">'+
+        '<div><i></i><span>Envío gratis en CDMX y área metropolitana desde '+money(FREE_SHIP)+'.</span></div>'+
+        '<div><i></i><span>Disponible en suscripción — hasta 15% de ahorro, sabores editables entre entregas.</span></div>'+
+        (p.fmt.indexOf("vidrio")>-1||p.fmt.indexOf("bidón")>-1?'<div><i></i><span>Envase retornable. Regrésalo con tu siguiente entrega — Segunda Vida.</span></div>':'')+
+      '</div>'+
+    '</div>'+
+  '</div>'+
+  insideHTML(p)+
+  '<div class="blocks">'+
+    '<div class="blk"><h3>Qué es</h3><p>'+fam.line+'</p></div>'+
+    '<div class="blk"><h3>Cómo sabe</h3><p>'+p.flavor+', en '+p.fmt+'.'+(p.fam==="kombucha"?' Ligeramente gasificada.':'')+'</p><p style="color:var(--ink-3);font-size:12.5px;margin-top:8px">La descripción de cata se toma de la ficha en vivo; aquí no se inventa.</p></div>'+
+    (formats.length?'<div class="blk"><h3>Otros formatos</h3><div class="fmtrow">'+formats.slice(0,4).map(function(f){
+      return '<button data-var="'+f.id+'" style="--c:'+f.c+'"><span class="sw"></span><span>'+f.fmt+'</span><span class="price" data-demo title="Precio de maqueta">'+money(f.price)+'</span></button>';
+    }).join("")+'</div></div>':'')+
+    '<div class="blk"><h3>Información relevante</h3><ul><li>Familia: '+fam.name+'</li><li>Formato: '+p.fmt+'</li><li>Sabor: '+p.flavor+'</li>'+(p.note?'<li>'+p.note+'</li>':'')+'<li>Datos nutricionales y alérgenos: pendientes del catálogo en vivo.</li></ul></div>'+
+  '</div>'+
+  '<div class="sec__head" style="margin:44px 0 20px"><h2 style="font-size:26px">'+rel.lead+'</h2></div>'+
+  '<div class="grid" id="relGrid"></div>'+
+  '</div>';
+  viewNode.innerHTML=h;
+  renderGrid($("#relGrid"),rel.list);
+  var q=1;
+  $("#pdpMinus").addEventListener("click",function(){if(q>1){q--;$("#pdpQty").textContent=q}});
+  $("#pdpPlus").addEventListener("click",function(){q++;$("#pdpQty").textContent=q});
+  $("#pdpAdd").addEventListener("click",function(){for(var i=0;i<q;i++)addToCart(p.id)});
+}
+function renderCollection(k){
+  var fam=FAM[k];
+  if(!fam){location.hash="#";return}
+  var list=P.filter(function(p){return p.fam===k});
+  viewNode.innerHTML='<div class="wrap">'+crumb([[fam.name,null]])+
+    '<div class="sec__head" style="margin:22px 0 26px"><h2>'+fam.name+'</h2><p>'+fam.line+'</p></div>'+
+    '<div class="grid" id="colGrid"></div>'+
+    '<p style="margin:30px 0 60px"><a href="#/" style="color:var(--jamaica);font-weight:700;text-decoration:none">← Volver a la portada</a></p></div>';
+  renderGrid($("#colGrid"),list);
+}
+function route(){
+  var h=location.hash||"";
+  if(h.indexOf("#/p/")===0){
+    var p=byId(h.slice(4));
+    if(p){homeNode.hidden=true;viewNode.hidden=false;renderPDP(p);window.scrollTo(0,0);document.title=p.name+" — Vida Bebida";return}
+  }
+  if(h.indexOf("#/c/")===0){
+    homeNode.hidden=true;viewNode.hidden=false;renderCollection(h.slice(4));window.scrollTo(0,0);
+    document.title=(FAM[h.slice(4)]?FAM[h.slice(4)].name+" — ":"")+"Vida Bebida";return;
+  }
+  viewNode.hidden=true;viewNode.innerHTML="";homeNode.hidden=false;
+  document.title="Vida Bebida 2.0";
+  if(h && h.length>1 && h.indexOf("#/")!==0){
+    var t=document.getElementById(h.slice(1));
+    if(t) setTimeout(function(){t.scrollIntoView({behavior:"smooth",block:"start"})},20);
+  }
+}
+window.addEventListener("hashchange",route);
+route();
+
+$("#demoMore").addEventListener("click",function(){
+  var on=$("#demoFull").classList.toggle("on");
+  this.setAttribute("aria-expanded",String(on));
+  this.textContent=on?"Ocultar":"Detalles";
+  syncBar();
+});
+syncBar();
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","name":"Vida Bebida — preguntas frecuentes","mainEntity":[
+{"@type":"Question","name":"¿Qué es Vida Bebida?","acceptedAnswer":{"@type":"Answer","text":"Una empresa mexicana que produce kombucha natural con insumos locales y técnica artesanal, con base en la Ciudad de México. Su catálogo incluye kombucha, yerba mate (Capibara), agua fresca gasificada (CHESCA), kéfir, vinagre de kombucha y Super Shots."}},
+{"@type":"Question","name":"¿Qué es la kombucha?","acceptedAnswer":{"@type":"Answer","text":"Una bebida hecha a partir de la fermentación de té verde y té negro con SCOBY, una cultura simbiótica de levaduras y bacterias. La receta se compone de té verde, té negro, azúcar orgánica para la fermentación, frutas, raíces y SCOBY."}},
+{"@type":"Question","name":"¿Qué es CHESCA?","acceptedAnswer":{"@type":"Answer","text":"Un agua fresca gasificada de Vida Bebida en lata de 355 ml, disponible en jamaica, limón y mango."}},
+{"@type":"Question","name":"¿Qué es Capibara?","acceptedAnswer":{"@type":"Answer","text":"La línea de yerba mate de Vida Bebida, con sabores como jamaica, mandarina y jengibre-menta."}},
+{"@type":"Question","name":"¿Vida Bebida tiene suscripción?","acceptedAnswer":{"@type":"Answer","text":"Sí. Arma tu pack permite elegir periodicidad y sabores, con un ahorro reportado de hasta 15%."}},
+{"@type":"Question","name":"¿Cómo funciona Segunda Vida?","acceptedAnswer":{"@type":"Answer","text":"El envase de vidrio se recupera para volver a usarse; la entrega recurrente de la suscripción hace posible el retorno."}},
+{"@type":"Question","name":"¿Dónde comprar Vida Bebida?","acceptedAnswer":{"@type":"Answer","text":"En línea en vidabebida.com con envío gratis en CDMX y área metropolitana a partir de 300 pesos, y en puntos de venta aliados en la ciudad."}}]}
+</script>

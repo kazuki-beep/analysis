@@ -1,0 +1,67 @@
+name: Deploy Vida Bebida
+
+# This container has no outbound network, but GitHub's runners can reach Vercel.
+# Deploys vida-bebida/ as one project: the prototype at / and the audit at /audit.
+#
+# Requires one repository secret: VERCEL_TOKEN
+#   Settings -> Secrets and variables -> Actions -> New repository secret
+#   Create the token at https://vercel.com/account/tokens
+#
+# Run it from the Actions tab (Run workflow), or let it fire on push.
+# The URL is printed to the run summary.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/vida-bebida-ecommerce-4ccpa8]
+    paths: ['vida-bebida/**', '.github/workflows/deploy-vida-bebida.yml']
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      # Skips rather than fails when the secret is absent: a missing token is a
+      # setup step the repo owner has to take, not a broken build, and a hard
+      # failure would leave every pull request on this branch red for it.
+      - name: Deploy
+        id: deploy
+        working-directory: vida-bebida
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "::warning::VERCEL_TOKEN is not set — skipping the deploy."
+            {
+              echo "## Vida Bebida 2.0 — deploy skipped"
+              echo ""
+              echo "\`VERCEL_TOKEN\` is not set, so there is nothing to deploy to yet."
+              echo ""
+              echo "1. Create a token at <https://vercel.com/account/tokens>"
+              echo "2. Add it as \`VERCEL_TOKEN\` under **Settings → Secrets and variables → Actions**"
+              echo "3. Re-run this workflow — the URLs land here"
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          url=$(vercel deploy --prod --yes --token="$VERCEL_TOKEN")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Publish the links
+        if: steps.deploy.outputs.url != ''
+        run: |
+          {
+            echo "## Vida Bebida 2.0"
+            echo ""
+            echo "| | |"
+            echo "|---|---|"
+            echo "| **Sitio** | ${{ steps.deploy.outputs.url }} |"
+            echo "| **Auditoría** | ${{ steps.deploy.outputs.url }}/audit |"
+          } >> "$GITHUB_STEP_SUMMARY"
