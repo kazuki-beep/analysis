@@ -47,10 +47,15 @@ button{font:inherit;color:inherit;cursor:pointer}
 .skip:focus{top:8px}
 
 /* ---------- DEMO NOTICE ---------- */
-#demoNote{background:#1F1720;color:#F6EEF1;font-size:12.5px;line-height:1.45;padding:9px 0}
-:root[data-theme="dark"] #demoNote,@media(prefers-color-scheme:dark){#demoNote{background:#2C2028}}
-#demoNote .wrap{display:flex;gap:10px;align-items:flex-start}
-#demoNote b{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;background:var(--jengibre);color:#1F1720;padding:2px 7px;border-radius:4px;flex:none;margin-top:1px}
+#demoNote{background:#1F1720;color:#EFE3E8;font-size:12px;line-height:1.4;padding:7px 0}
+#demoNote .wrap{display:flex;gap:9px;align-items:center}
+#demoNote .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;background:var(--jengibre);color:#1F1720;padding:2px 7px;border-radius:4px;flex:none}
+#demoNote .one{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#demoNote .more{flex:none;background:none;border:0;color:#EFE3E8;text-decoration:underline;font-size:11.5px;padding:0}
+#demoNote .full{display:none;padding:4px 0 8px;font-size:12px;line-height:1.5;color:#C9B9C0;max-width:78ch}
+#demoNote .full.on{display:block}
+#demoNote .full p+p{margin-top:7px}
+@media(max-width:640px){#demoNote .one{white-space:normal;font-size:11.5px;line-height:1.3}}
 
 /* ---------- ANNOUNCEMENT STRIP (§01/§02/§31) ---------- */
 .ann{position:sticky;top:0;z-index:90;background:linear-gradient(96deg,var(--jamaica-deep),var(--jamaica) 55%,#E23C77);color:#fff;box-shadow:0 1px 0 rgba(0,0,0,.12)}
@@ -86,6 +91,8 @@ header.site{position:sticky;top:var(--bar-h);z-index:80;background:color-mix(in 
 .logo{font-family:var(--display);font-variation-settings:"wdth" 118;font-weight:900;font-size:17px;letter-spacing:-.03em;text-decoration:none;line-height:1;display:flex;flex-direction:column}
 .logo span{font-family:var(--mono);font-size:8px;letter-spacing:.22em;font-weight:400;color:var(--ink-3);margin-top:2px}
 nav.main{display:flex;gap:20px;font-size:14px;margin-left:auto}
+.hd .cartbtn{margin-left:0}
+@media(max-width:880px){.hd .cartbtn{margin-left:auto}}
 nav.main a{text-decoration:none;color:var(--ink-2);padding:4px 0;border-bottom:2px solid transparent}
 nav.main a:hover{color:var(--ink);border-color:var(--jamaica)}
 .cartbtn{border:1px solid var(--line-strong);background:var(--surface);border-radius:999px;padding:8px 14px;font-size:13.5px;font-weight:700;display:inline-flex;gap:8px;align-items:center}
@@ -298,15 +305,95 @@ footer.site{background:var(--ink);color:var(--ground);padding:52px 0 30px;margin
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,80px);background:var(--ink);color:var(--ground);padding:12px 20px;border-radius:999px;font-size:13.5px;font-weight:600;z-index:200;opacity:0;transition:all .3s;pointer-events:none}
 :root[data-theme="dark"] .toast,:root:not([data-theme="light"]) .toast{background:var(--surface-2);color:var(--ink);box-shadow:0 0 0 1px var(--line)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- MOBILE NAV + SEARCH ---------- */
+.iconbtn{border:1px solid var(--line-strong);background:var(--surface);border-radius:999px;width:38px;height:38px;display:grid;place-items:center;flex:none}
+.iconbtn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+#menuBtn{display:none}
+@media(max-width:880px){#menuBtn{display:grid}}
+.sheet{position:fixed;inset:0;z-index:165;background:var(--ground);display:flex;flex-direction:column;transform:translateY(-100%);transition:transform .28s cubic-bezier(.2,.8,.3,1)}
+.sheet.on{transform:none}
+.sheet__hd{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line)}
+.sheet nav{padding:8px 20px;display:grid}
+.sheet nav a{padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none;font-family:var(--display);font-weight:700;font-size:20px}
+.sheet .fams{padding:18px 20px;display:flex;gap:8px;flex-wrap:wrap}
+.sheet .fams a{border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13px;text-decoration:none;color:var(--ink-2)}
+#searchWrap{padding:16px 20px;border-bottom:1px solid var(--line)}
+#searchInput{width:100%;border:1.5px solid var(--line-strong);background:var(--surface);border-radius:12px;padding:13px 15px;font:inherit;font-size:16px;color:var(--ink)}
+#searchOut{flex:1;overflow:auto;padding:6px 20px 20px}
+.sres{display:grid;grid-template-columns:38px 1fr auto;gap:13px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);width:100%;background:none;border-left:0;border-right:0;border-top:0;text-align:left}
+.sres .sw{width:38px;height:50px;border-radius:5px;background:var(--c)}
+.sres b{display:block;font-size:14.5px;font-weight:700;line-height:1.2}
+.sres small{font-size:12px;color:var(--ink-2)}
+.shint{color:var(--ink-3);font-size:14px;padding:26px 0}
+
+/* ---------- VIEWS / PDP (§19) ---------- */
+.crumb{font-size:12.5px;color:var(--ink-3);padding:20px 0 0;display:flex;gap:8px;flex-wrap:wrap}
+.crumb a{color:var(--ink-2);text-decoration:none}
+.crumb a:hover{color:var(--jamaica)}
+.pdp{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;padding:22px 0 10px;align-items:start}
+@media(max-width:880px){.pdp{grid-template-columns:1fr;gap:26px}}
+.pdp__gal{display:grid;grid-template-columns:1fr;gap:10px;position:sticky;top:128px}
+@media(max-width:880px){.pdp__gal{position:static}}
+.pdp__main{aspect-ratio:1.1;border-radius:var(--r);background:color-mix(in srgb,var(--c) 16%,var(--surface));display:grid;place-items:center;border:1px solid var(--line)}
+.pdp__main .pack{height:76%;aspect-ratio:.46}
+.pdp__thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pdp__thumbs div{aspect-ratio:1;border-radius:10px;border:1px solid var(--line);background:color-mix(in srgb,var(--c) 10%,var(--surface));display:grid;place-items:center;font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);text-align:center;padding:6px}
+.pdp h1{font-size:clamp(30px,4.4vw,46px);font-weight:900;font-variation-settings:"wdth" 104;margin-top:6px}
+.pdp .fam{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--jamaica)}
+.pdp .pr{font-family:var(--mono);font-size:24px;font-weight:600;margin-top:14px;display:inline-block}
+.pdp .lead{color:var(--ink-2);margin-top:12px;max-width:52ch}
+.optlab{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin:24px 0 9px}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opts button{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 15px;font-size:14px;font-weight:500}
+.opts button[aria-pressed="true"]{border-color:var(--jamaica);box-shadow:inset 0 0 0 1.5px var(--jamaica);color:var(--jamaica);font-weight:700}
+.buyrow{display:flex;gap:12px;margin-top:24px;align-items:stretch;flex-wrap:wrap}
+.stepper{display:flex;align-items:center;border:1.5px solid var(--line-strong);border-radius:999px;overflow:hidden;background:var(--surface)}
+.stepper button{width:42px;height:48px;border:0;background:none;font-size:19px;line-height:1}
+.stepper span{min-width:30px;text-align:center;font-family:var(--mono);font-size:15px}
+.buyrow .btn{flex:1;min-width:190px;justify-content:center;padding:15px 24px;font-size:16px}
+.deliv{margin-top:18px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px 16px;font-size:13.5px;color:var(--ink-2);display:grid;gap:8px}
+.deliv div{display:grid;grid-template-columns:16px 1fr;gap:10px;align-items:start}
+.deliv i{width:7px;height:7px;border-radius:50%;background:var(--mate);margin-top:7px}
+
+/* ---------- LO QUE HAY ADENTRO (§20 §21) ---------- */
+.inside{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);overflow:hidden;margin-top:14px}
+.inside__hd{padding:18px 20px 4px}
+.inside__hd h3{font-size:22px;font-weight:800}
+.inside__hd p{color:var(--ink-2);font-size:13.5px;margin-top:5px}
+.inside__list{display:grid}
+.ingr{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:15px 20px;border-top:1px solid var(--line);align-items:start}
+.ingr .dot{width:44px;height:44px;border-radius:50%;background:var(--c);display:grid;place-items:center;font-family:var(--mono);font-size:11px;color:#fff;font-weight:600}
+.ingr b{display:block;font-family:var(--display);font-weight:700;font-size:16px}
+.ingr small{color:var(--ink-2);font-size:13px;display:block;margin-top:2px}
+.inside__pend{padding:18px 20px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-3);background:var(--surface-2)}
+.blocks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media(max-width:760px){.blocks{grid-template-columns:1fr}}
+.blk{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:18px 20px}
+.blk h3{font-size:17px;font-weight:800;margin-bottom:7px}
+.blk p{color:var(--ink-2);font-size:14px}
+.blk ul{margin:8px 0 0;padding-left:18px;color:var(--ink-2);font-size:14px;display:grid;gap:5px}
+.fmtrow{display:grid;gap:8px;margin-top:10px}
+.fmtrow button{border:1px solid var(--line);background:var(--ground);border-radius:10px;padding:11px 14px;display:flex;gap:12px;align-items:center;text-align:left;font-size:14px}
+.fmtrow button:hover{border-color:var(--jamaica)}
+.fmtrow .sw{width:16px;height:24px;border-radius:4px;background:var(--c);flex:none}
+.fmtrow .price{margin-left:auto}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
 </style>
 
 <a class="skip" href="#main">Saltar al contenido</a>
 
-<div id="demoNote"><div class="wrap">
-  <b>Prototipo</b>
-  <p>Rediseño de demostración. Los <strong>precios llevan subrayado punteado</strong> y son valores de maqueta, no del catálogo real; las áreas de producto marcadas <span class="mono" style="border:1px dashed currentColor;padding:1px 4px;border-radius:3px">asset</span> esperan la fotografía original de Vida&nbsp;Bebida. Nombres, sabores, formatos, umbral de envío y puntos de venta provienen de fuentes públicas y deben verificarse contra la tienda en vivo antes de publicar.</p>
-</div></div>
+<div id="demoNote">
+  <div class="wrap">
+    <span class="tag">Prototipo</span>
+    <p class="one">Precios de maqueta, fotografía pendiente. Ningún dato es del catálogo en vivo.</p>
+    <button class="more" id="demoMore" aria-expanded="false" aria-controls="demoFull">Detalles</button>
+  </div>
+  <div class="wrap"><div class="full" id="demoFull">
+    <p>Los <strong>precios llevan subrayado punteado</strong>: son valores de maqueta, no del catálogo real. Las áreas de producto marcadas <span class="mono" style="border:1px dashed currentColor;padding:1px 4px;border-radius:3px">asset</span> esperan la fotografía original de Vida&nbsp;Bebida — no se dibujaron envases falsos.</p>
+    <p>La paleta se deriva de ingredientes reales (jamaica, limón, mango, moras, jengibre, mate), no de la identidad de la marca. Nombres, sabores, formatos, umbral de envío, términos de suscripción y puntos de venta provienen de fuentes públicas y deben verificarse contra la tienda en vivo antes de publicar.</p>
+  </div></div>
+</div>
 
 <!-- ===== ANNOUNCEMENT (§01 §02 §31) ===== -->
 <div class="ann" id="ann">
@@ -341,11 +428,34 @@ footer.site{background:var(--ink);color:var(--ground);padding:52px 0 30px;margin
       <a href="#segunda">Segunda Vida</a>
       <a href="#tiendas">Dónde comprar</a>
     </nav>
+    <button class="iconbtn" id="searchBtn" aria-label="Buscar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
     <button class="cartbtn" id="cartBtn">Carrito <span class="n" id="cartN">0</span></button>
+    <button class="iconbtn" id="menuBtn" aria-label="Menú" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
   </div>
 </header>
 
+<div class="sheet" id="menuSheet" role="dialog" aria-modal="true" aria-label="Menú" aria-hidden="true">
+  <div class="sheet__hd"><strong style="flex:1;font-family:var(--display);font-weight:800">Menú</strong><button class="x" id="menuX" aria-label="Cerrar menú">×</button></div>
+  <nav>
+    <a href="#antojo" data-close>¿Qué se te antoja?</a>
+    <a href="#mundos" data-close>Bebidas</a>
+    <a href="#chesca" data-close>CHESCA</a>
+    <a href="#caja" data-close>Arma tu caja</a>
+    <a href="#segunda" data-close>Segunda Vida</a>
+    <a href="#tiendas" data-close>Dónde comprar</a>
+  </nav>
+  <div class="fams" id="menuFams"></div>
+</div>
+
+<div class="sheet" id="searchSheet" role="dialog" aria-modal="true" aria-label="Buscar" aria-hidden="true">
+  <div class="sheet__hd"><strong style="flex:1;font-family:var(--display);font-weight:800">Buscar</strong><button class="x" id="searchX" aria-label="Cerrar búsqueda">×</button></div>
+  <div id="searchWrap"><input id="searchInput" type="search" placeholder="Kombucha, jamaica, bidón, shot…" autocomplete="off" aria-label="Buscar bebidas"></div>
+  <div id="searchOut" aria-live="polite"></div>
+</div>
+
 <main id="main">
+<div id="view" hidden></div>
+<div id="home">
 
 <!-- ===== HERO (§12) ===== -->
 <section class="hero">
@@ -501,6 +611,7 @@ footer.site{background:var(--ink);color:var(--ground);padding:52px 0 30px;margin
     <div class="faq" id="faq"></div>
   </div>
 </section>
+</div>
 </main>
 
 <footer class="site">
@@ -632,7 +743,7 @@ function packHTML(c,fmt){
 function cardHTML(p){
   return '<article class="card" style="--c:'+p.c+'">'+
     '<div class="card__media"><span class="card__fam">'+FAM[p.fam].name+'</span>'+packHTML(p.c,p.fmt)+'</div>'+
-    '<div class="card__b"><h4>'+p.name+'</h4>'+
+    '<div class="card__b"><h4><a href="#/p/'+p.id+'" style="text-decoration:none">'+p.name+'</a></h4>'+
       '<span class="card__flav">'+p.flavor+' · '+p.fmt+'</span>'+
       '<button class="card__qv" data-qv="'+p.id+'">Ver detalles</button>'+
       '<div class="card__row"><span class="price" data-demo title="Precio de maqueta — pendiente del catálogo en vivo">'+money(p.price)+'</span>'+
@@ -686,7 +797,7 @@ $("#antojoReset").addEventListener("click",function(){
 /* ---------- worlds + catalogue ---------- */
 $("#worlds").innerHTML=Object.keys(FAM).map(function(k){
   var f=FAM[k], n=P.filter(function(p){return p.fam===k}).length;
-  return '<a class="world" style="--c:'+f.c+'" href="#mundos"><h3>'+f.name+'</h3><p>'+f.line+'</p><div class="mono">'+n+(n===1?" producto":" productos")+'</div></a>';
+  return '<a class="world" style="--c:'+f.c+'" href="#/c/'+k+'"><h3>'+f.name+'</h3><p>'+f.line+'</p><div class="mono">'+n+(n===1?" producto":" productos")+'</div></a>';
 }).join("");
 renderGrid($("#allGrid"),P);
 
@@ -832,7 +943,7 @@ $("#faq").innerHTML=FAQ.map(function(f,i){
 
 /* ---------- cart (§28 §29) ---------- */
 var cart=[];
-function openCart(){$("#drawer").classList.add("on");$("#scrim").classList.add("on");$("#drawer").setAttribute("aria-hidden","false");$("#drawerX").focus()}
+function openCart(){lastFocus=document.activeElement;$("#drawer").classList.add("on");$("#scrim").classList.add("on");$("#drawer").setAttribute("aria-hidden","false");$("#drawerX").focus()}
 function closeAll(){
   $("#drawer").classList.remove("on");$("#qv").classList.remove("on");$("#scrim").classList.remove("on");
   $("#drawer").setAttribute("aria-hidden","true");$("#qv").setAttribute("aria-hidden","true");
@@ -841,7 +952,7 @@ $("#cartBtn").addEventListener("click",openCart);
 $("#drawerX").addEventListener("click",closeAll);
 $("#qvX").addEventListener("click",closeAll);
 $("#scrim").addEventListener("click",closeAll);
-document.addEventListener("keydown",function(e){if(e.key==="Escape")closeAll()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeAll();if(typeof closeSheets==="function")closeSheets()}});
 $("#checkout").addEventListener("click",function(){toast("En producción: /checkout de Shopify")});
 
 function addToCart(id){
@@ -868,10 +979,21 @@ function renderCart(){
   /* cross-sell by moment (§29) */
   var xs=$("#xsell");
   if(cart.length){
-    var fams={}; cart.forEach(function(i){var p=byId(i.id); if(p) fams[p.fam]=1});
-    var sug=P.filter(function(p){return !fams[p.fam] && p.box}).slice(0,3);
-    var lead = fams.chesca ? "Para probar otros sabores" : (fams.kombucha ? "También en formato bidón" : "Completa tu caja");
-    if(fams.kombucha) sug=[byId("k-bid")].concat(sug.slice(0,2));
+    var inCart={}, fams={};
+    cart.forEach(function(i){inCart[i.id]=1; var p=byId(i.id); if(p) fams[p.fam]=1});
+    var lead, sug;
+    if(fams.chesca){
+      lead="Para probar otros sabores";
+      sug=P.filter(function(p){return p.fam==="chesca" && !inCart[p.id]});
+    } else if(fams.kombucha){
+      lead="También en formato bidón";
+      sug=P.filter(function(p){return p.fam==="kombucha" && !inCart[p.id] && p.fmt.indexOf("355")<0});
+    } else {
+      lead="Completa tu caja";
+      sug=P.filter(function(p){return !fams[p.fam] && p.box});
+    }
+    if(sug.length<2) sug=sug.concat(P.filter(function(p){return !fams[p.fam] && p.box && !inCart[p.id]}));
+    sug=sug.slice(0,3);
     xs.hidden=false;
     xs.innerHTML='<div class="mono">'+lead+'</div>'+sug.map(function(p){return '<button data-add="'+p.id+'">'+p.name+' +</button>'}).join("");
   } else xs.hidden=true;
@@ -893,10 +1015,12 @@ function openQV(id){
   $("#qv").classList.add("on"); $("#scrim").classList.add("on"); $("#qv").setAttribute("aria-hidden","false"); $("#qvX").focus();
 }
 $("#qvAdd").addEventListener("click",function(){if(qvCur){addToCart(qvCur.id)}});
-$("#qvFull").addEventListener("click",function(){toast("En producción: /products/"+((qvCur&&qvCur.handle)||"…"))});
+$("#qvFull").addEventListener("click",function(){if(qvCur){closeAll();location.hash="#/p/"+qvCur.id}});
 
 /* ---------- delegated actions ---------- */
 document.addEventListener("click",function(e){
+  var v=e.target.closest("[data-var]");
+  if(v){location.hash="#/p/"+v.getAttribute("data-var");return}
   var a=e.target.closest("[data-add]");
   if(a){addToCart(a.getAttribute("data-add"));return}
   var q=e.target.closest("[data-qv]");
@@ -911,6 +1035,196 @@ document.addEventListener("click",function(e){
     }
     renderCart();
   }
+});
+
+/* ===============================================================
+   INGREDIENTES DOCUMENTADOS (§20 §21)
+   Solo lo que la marca ya publica. Donde no hay dato, el
+   componente muestra el hueco en vez de rellenarlo.
+================================================================ */
+var ING_KOMBUCHA=[["Té verde","Base de la fermentación."],["Té negro","Base de la fermentación."],["Azúcar orgánica","Alimenta la fermentación."],["Fruta",""],["Raíces",""],["SCOBY","Cultura simbiótica de levaduras y bacterias."]];
+var ING_CAPIBARA=[["Yerba mate","Hoja de Ilex paraguariensis, originaria de los bosques tropicales de Brasil, Paraguay y Argentina."]];
+var ING_IMMUNE=[["Vinagre de kombucha",""],["Jugo de limón",""],["Jugo de jengibre",""],["Jugo de cúrcuma",""],["Sorbato de sodio","Conservador."]];
+P.forEach(function(p){
+  if(p.fam==="kombucha") p.ingr=ING_KOMBUCHA;
+  else if(p.fam==="capibara") p.ingr=ING_CAPIBARA;
+  else if(p.id==="s-imm"||p.id==="s-c12") p.ingr=ING_IMMUNE;
+});
+
+/* ---------- focus management for dialogs ---------- */
+var lastFocus=null;
+function trap(node){
+  node.addEventListener("keydown",function(e){
+    if(e.key!=="Tab") return;
+    var f=node.querySelectorAll('a[href],button:not([disabled]),input,select,textarea,[tabindex]:not([tabindex="-1"])');
+    if(!f.length) return;
+    var first=f[0], last=f[f.length-1];
+    if(e.shiftKey && document.activeElement===first){e.preventDefault();last.focus()}
+    else if(!e.shiftKey && document.activeElement===last){e.preventDefault();first.focus()}
+  });
+}
+["#drawer","#qv","#menuSheet","#searchSheet"].forEach(function(sel){trap($(sel))});
+
+/* ---------- mobile menu + search ---------- */
+var menuSheet=$("#menuSheet"), searchSheet=$("#searchSheet");
+$("#menuFams").innerHTML=Object.keys(FAM).map(function(k){
+  return '<a href="#/c/'+k+'" data-close>'+FAM[k].name+'</a>';
+}).join("");
+function openSheet(node){
+  lastFocus=document.activeElement;
+  node.classList.add("on"); node.setAttribute("aria-hidden","false");
+  document.body.style.overflow="hidden";
+  var f=node.querySelector("input")||node.querySelector("button");
+  if(f) setTimeout(function(){f.focus()},60);
+}
+function closeSheets(){
+  [menuSheet,searchSheet].forEach(function(n){n.classList.remove("on");n.setAttribute("aria-hidden","true")});
+  document.body.style.overflow="";
+  $("#menuBtn").setAttribute("aria-expanded","false");
+  if(lastFocus&&lastFocus.focus){lastFocus.focus();lastFocus=null}
+}
+$("#menuBtn").addEventListener("click",function(){openSheet(menuSheet);this.setAttribute("aria-expanded","true")});
+$("#searchBtn").addEventListener("click",function(){openSheet(searchSheet);runSearch()});
+$("#menuX").addEventListener("click",closeSheets);
+$("#searchX").addEventListener("click",closeSheets);
+document.addEventListener("click",function(e){if(e.target.closest("[data-close]"))setTimeout(closeSheets,10)});
+
+function runSearch(){
+  var q=$("#searchInput").value.trim().toLowerCase();
+  var out=$("#searchOut");
+  if(!q){
+    out.innerHTML='<p class="shint">Busca por sabor, familia o formato — “jamaica”, “bidón”, “shot”, “500”.</p>';
+    return;
+  }
+  var hits=P.filter(function(p){
+    return (p.name+" "+p.flavor+" "+p.fmt+" "+FAM[p.fam].name).toLowerCase().indexOf(q)>-1;
+  });
+  out.innerHTML = hits.length
+    ? hits.map(function(p){
+        return '<button class="sres" style="--c:'+p.c+'" data-go="'+p.id+'"><span class="sw"></span>'+
+        '<span><b>'+p.name+'</b><small>'+FAM[p.fam].name+' · '+p.fmt+'</small></span>'+
+        '<span class="price" data-demo title="Precio de maqueta">'+money(p.price)+'</span></button>';
+      }).join("")
+    : '<p class="shint">Nada con “'+q.replace(/</g,"&lt;")+'”. Prueba con un sabor o un formato.</p>';
+}
+$("#searchInput").addEventListener("input",runSearch);
+$("#searchOut").addEventListener("click",function(e){
+  var b=e.target.closest("[data-go]"); if(!b) return;
+  closeSheets(); location.hash="#/p/"+b.getAttribute("data-go");
+});
+
+/* ===============================================================
+   ROUTER — home · colección · ficha de producto (§19)
+================================================================ */
+var viewNode=$("#view"), homeNode=$("#home");
+function crumb(parts){
+  return '<nav class="crumb" aria-label="Ruta"><a href="#/">Inicio</a>'+
+    parts.map(function(x){return '<span aria-hidden="true">/</span>'+(x[1]?'<a href="'+x[1]+'">'+x[0]+'</a>':'<span>'+x[0]+'</span>')}).join("")+'</nav>';
+}
+function relatedFor(p){
+  var same=P.filter(function(x){return x.fam===p.fam && x.id!==p.id});
+  var other=P.filter(function(x){return x.fam!==p.fam && x.box});
+  var lead = same.length ? "Otros sabores de "+FAM[p.fam].name : "También te puede servir";
+  return {lead:lead, list:same.slice(0,2).concat(other.slice(0,2)).slice(0,4)};
+}
+function insideHTML(p){
+  var h='<div class="inside"><div class="inside__hd"><h3>Lo que hay adentro — y ya</h3>'+
+    '<p>La lista completa, sin letra chica.</p></div>';
+  if(p.ingr){
+    h+='<div class="inside__list">'+p.ingr.map(function(x,i){
+      return '<div class="ingr" style="--c:'+p.c+'"><span class="dot">'+(i+1)+'</span>'+
+        '<span><b>'+x[0]+'</b>'+(x[1]?'<small>'+x[1]+'</small>':'')+'</span></div>';
+    }).join("")+'</div>';
+    if(p.fam==="capibara") h+='<div class="inside__pend">El saborizante de '+p.flavor.toLowerCase()+' y el resto de la fórmula se toman de la etiqueta en vivo.</div>';
+  } else {
+    h+='<div class="inside__pend">Lista de ingredientes pendiente del catálogo en vivo. El componente muestra el hueco en vez de rellenarlo.</div>';
+  }
+  return h+'</div>';
+}
+function renderPDP(p){
+  var fam=FAM[p.fam];
+  var variants=P.filter(function(x){return x.fam===p.fam && x.fmt===p.fmt});
+  var formats=P.filter(function(x){return x.fam===p.fam && x.fmt!==p.fmt});
+  var rel=relatedFor(p);
+  var h='<div class="wrap">'+crumb([[fam.name,"#/c/"+p.fam],[p.name,null]])+
+  '<div class="pdp" style="--c:'+p.c+'">'+
+    '<div class="pdp__gal">'+
+      '<div class="pdp__main">'+packHTML(p.c,p.fmt)+'</div>'+
+      '<div class="pdp__thumbs"><div>Foto de producto</div><div>Detalle de etiqueta</div><div>Estilo de vida</div></div>'+
+    '</div>'+
+    '<div>'+
+      '<p class="fam">'+fam.name+'</p><h1>'+p.name+'</h1>'+
+      '<span class="pr price" data-demo title="Precio de maqueta — pendiente del catálogo en vivo">'+money(p.price)+'</span>'+
+      '<p class="lead">'+fam.line+'</p>'+
+      (variants.length>1?'<p class="optlab">Sabor</p><div class="opts">'+variants.map(function(v){
+        return '<button data-var="'+v.id+'" aria-pressed="'+(v.id===p.id)+'">'+v.flavor+'</button>';
+      }).join("")+'</div>':'')+
+      '<p class="optlab">Cantidad</p>'+
+      '<div class="buyrow">'+
+        '<div class="stepper"><button id="pdpMinus" aria-label="Menos">−</button><span id="pdpQty">1</span><button id="pdpPlus" aria-label="Más">+</button></div>'+
+        '<button class="btn btn--p" id="pdpAdd" data-pdpadd="'+p.id+'">Agregar al carrito</button>'+
+      '</div>'+
+      '<div class="deliv">'+
+        '<div><i></i><span>Envío gratis en CDMX y área metropolitana desde '+money(FREE_SHIP)+'.</span></div>'+
+        '<div><i></i><span>Disponible en suscripción — hasta 15% de ahorro, sabores editables entre entregas.</span></div>'+
+        (p.fmt.indexOf("vidrio")>-1||p.fmt.indexOf("bidón")>-1?'<div><i></i><span>Envase retornable. Regrésalo con tu siguiente entrega — Segunda Vida.</span></div>':'')+
+      '</div>'+
+    '</div>'+
+  '</div>'+
+  insideHTML(p)+
+  '<div class="blocks">'+
+    '<div class="blk"><h3>Qué es</h3><p>'+fam.line+'</p></div>'+
+    '<div class="blk"><h3>Cómo sabe</h3><p>'+p.flavor+', en '+p.fmt+'.'+(p.fam==="kombucha"?' Ligeramente gasificada.':'')+'</p><p style="color:var(--ink-3);font-size:12.5px;margin-top:8px">La descripción de cata se toma de la ficha en vivo; aquí no se inventa.</p></div>'+
+    (formats.length?'<div class="blk"><h3>Otros formatos</h3><div class="fmtrow">'+formats.slice(0,4).map(function(f){
+      return '<button data-var="'+f.id+'" style="--c:'+f.c+'"><span class="sw"></span><span>'+f.fmt+'</span><span class="price" data-demo title="Precio de maqueta">'+money(f.price)+'</span></button>';
+    }).join("")+'</div></div>':'')+
+    '<div class="blk"><h3>Información relevante</h3><ul><li>Familia: '+fam.name+'</li><li>Formato: '+p.fmt+'</li><li>Sabor: '+p.flavor+'</li>'+(p.note?'<li>'+p.note+'</li>':'')+'<li>Datos nutricionales y alérgenos: pendientes del catálogo en vivo.</li></ul></div>'+
+  '</div>'+
+  '<div class="sec__head" style="margin:44px 0 20px"><h2 style="font-size:26px">'+rel.lead+'</h2></div>'+
+  '<div class="grid" id="relGrid"></div>'+
+  '</div>';
+  viewNode.innerHTML=h;
+  renderGrid($("#relGrid"),rel.list);
+  var q=1;
+  $("#pdpMinus").addEventListener("click",function(){if(q>1){q--;$("#pdpQty").textContent=q}});
+  $("#pdpPlus").addEventListener("click",function(){q++;$("#pdpQty").textContent=q});
+  $("#pdpAdd").addEventListener("click",function(){for(var i=0;i<q;i++)addToCart(p.id)});
+}
+function renderCollection(k){
+  var fam=FAM[k];
+  if(!fam){location.hash="#";return}
+  var list=P.filter(function(p){return p.fam===k});
+  viewNode.innerHTML='<div class="wrap">'+crumb([[fam.name,null]])+
+    '<div class="sec__head" style="margin:22px 0 26px"><h2>'+fam.name+'</h2><p>'+fam.line+'</p></div>'+
+    '<div class="grid" id="colGrid"></div>'+
+    '<p style="margin:30px 0 60px"><a href="#/" style="color:var(--jamaica);font-weight:700;text-decoration:none">← Volver a la portada</a></p></div>';
+  renderGrid($("#colGrid"),list);
+}
+function route(){
+  var h=location.hash||"";
+  if(h.indexOf("#/p/")===0){
+    var p=byId(h.slice(4));
+    if(p){homeNode.hidden=true;viewNode.hidden=false;renderPDP(p);window.scrollTo(0,0);document.title=p.name+" — Vida Bebida";return}
+  }
+  if(h.indexOf("#/c/")===0){
+    homeNode.hidden=true;viewNode.hidden=false;renderCollection(h.slice(4));window.scrollTo(0,0);
+    document.title=(FAM[h.slice(4)]?FAM[h.slice(4)].name+" — ":"")+"Vida Bebida";return;
+  }
+  viewNode.hidden=true;viewNode.innerHTML="";homeNode.hidden=false;
+  document.title="Vida Bebida 2.0";
+  if(h && h.length>1 && h.indexOf("#/")!==0){
+    var t=document.getElementById(h.slice(1));
+    if(t) setTimeout(function(){t.scrollIntoView({behavior:"smooth",block:"start"})},20);
+  }
+}
+window.addEventListener("hashchange",route);
+route();
+
+$("#demoMore").addEventListener("click",function(){
+  var on=$("#demoFull").classList.toggle("on");
+  this.setAttribute("aria-expanded",String(on));
+  this.textContent=on?"Ocultar":"Detalles";
+  syncBar();
 });
 syncBar();
 </script>
